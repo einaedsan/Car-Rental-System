@@ -1,0 +1,22 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build folders
+Debug/
+Release/
+x64/
+x86/
+
+# Compiled files
+*.exe
+*.obj
+*.pdb
+*.ilk
+
+# Logs
+*.log
+
