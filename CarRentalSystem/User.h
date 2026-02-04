@@ -23,7 +23,9 @@ protected:
 
 public:
     User();
-    User(int Id,const string& n,const string& u,const string& pas);
+    User(int Id, const string& n, const string& u, const string& pas);
+    User(const string& u, const string& pas);
+
 
     int getId() const;
     string getName() const;

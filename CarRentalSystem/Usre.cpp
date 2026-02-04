@@ -13,6 +13,13 @@ User::User(int Id, const string& n, const string& u, const string& pas) {
     isBlocked = false;
 }
 
+User::User(const string& u, const string& pas) {
+
+    username = u;
+    passwordHash = pas;
+    isBlocked = false;
+}
+
 int User::getId() const {
     return id;
 }

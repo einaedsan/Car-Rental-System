@@ -1,5 +1,7 @@
 ﻿#include "AuthManager.h"
 #include "PasswordHasher.h"
+#include "Manager.h"
+#include "Staff.h"
 #include <iostream>
 
 using namespace std;
@@ -61,3 +63,54 @@ User* AuthManager::login(UserList& users) {
     cout << "❌ Wrong password\n";
     return nullptr;
 }
+
+bool AuthManager::loginManager() {
+    string username, password;
+
+    cout << "Manager username: ";
+    cin >> username;
+
+    cout << "Password: ";
+    cin >> password;
+
+    Manager* manager = Manager::getInstance();
+
+    if (username != manager->getUsername()) {
+        cout << "❌ Invalid manager username\n";
+        return false;
+    }
+
+    if (password != manager->getPasswordHash()) {
+        cout << "❌ Wrong password\n";
+        return false;
+    }
+
+    cout << "✅ Manager login successful\n";
+    return true;
+}
+
+bool AuthManager::loginStaff() {
+    string username, password;
+
+    cout << "Staff username: ";
+    cin >> username;
+
+    cout << "Password: ";
+    cin >> password;
+
+    Staff* staff = Staff::getInstance();
+
+    if (username != staff->getUsername()) {
+        cout << "❌ Invalid staff username\n";
+        return false;
+    }
+
+    if (password != staff->getPasswordHash()) {
+        cout << "❌ Wrong password\n";
+        return false;
+    }
+
+    cout << "✅ Staff login successful\n";
+    return true;
+}
+
