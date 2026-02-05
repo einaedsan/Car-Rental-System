@@ -17,6 +17,7 @@ enum CarStatus {
 
 class Car {
 private:
+    static int nextId;
     int id;
     string plate;
     string brand;
@@ -29,8 +30,8 @@ private:
     //MaintenanceList* maintenanceHistory;
 
 public:
-    Car();
-    Car(int Id, string Plate,string Brand, string Model, string Type, double Price);
+    //Car();
+    Car(string Plate,string Brand, string Model, string Type, double Price);
 
     int getId() const;
     string getPlate() const;

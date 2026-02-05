@@ -1,19 +1,21 @@
 #include "Car.h"
 
-Car::Car(): id(0), pricePerDay(0), status(AVAILABLE)) {}
+int Car::nextId = 1;
+
+//Car::Car(): id(0), pricePerDay(0), status(AVAILABLE)) {}
 
 //Car::Car() : id(0), pricePerDay(0), status(AVAILABLE), reservationQueue(NULL), maintenanceHistory(NULL) {}
 
 
-Car::Car(int Id, string Plate, string Brand, string Model, string Type, double Price)
+Car::Car(string Plate, string Brand, string Model, string Type, double Price)
 {
-    id = Id;
+    id = nextId++;
     plate = Plate;
     brand = Brand;
     model = Model;
     type = Type;
-    price = Price;
-    status = "AVAILABLE";
+    pricePerDay = Price;
+    status = AVAILABLE;
     //reservationQueue = nullptr;
     //maintenanceHistory = nullptr;
 
@@ -23,7 +25,7 @@ int Car::getId() const {
     return id;
 }
 
-string getPlate() const{
+string Car::getPlate() const{
     return plate;
 }
 
