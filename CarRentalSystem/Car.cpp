@@ -16,8 +16,8 @@ Car::Car(string Plate, string Brand, string Model, string Type, double Price)
     type = Type;
     pricePerDay = Price;
     status = AVAILABLE;
-    //reservationQueue = nullptr;
-    //maintenanceHistory = nullptr;
+    reservationQueue = new ReservationQueue();
+    maintenanceHistory = new MaintenanceList();
 
 }
 
@@ -53,10 +53,10 @@ void Car::setStatus(CarStatus s) {
     status = s;
 }
 
-//ReservationQueue* Car::getReservationQueue() const{
-//    return reservationQueue;
-//}
-//
-//MaintenanceList* Car::getMaintenanceHistory() const {
-//    return maintenanceHistory;
-//}
+ReservationQueue* Car::getReservationQueue() const {
+    return reservationQueue;
+}
+
+MaintenanceList* Car::getMaintenanceHistory() const {
+    return maintenanceHistory;
+}
