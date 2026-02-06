@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="AuthManager.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
     <ClCompile Include="Maintenance.cpp" />
     <ClCompile Include="Manager.cpp" />
@@ -138,11 +139,13 @@
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="UserList.cpp" />
     <ClCompile Include="UserStorage.cpp" />
-    <ClCompile Include="Usre.cpp" />
+    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthManager.h" />
     <ClInclude Include="Car.h" />
+    <ClInclude Include="CarList.h" />
+    <ClInclude Include="CarNode.h" />
     <ClInclude Include="Maintenance.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="PasswordHasher.h" />

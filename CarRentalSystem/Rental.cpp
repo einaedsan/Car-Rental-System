@@ -4,8 +4,8 @@ int Rental::nextId = 1;
 
 Rental::Rental(int uId, int cId, int start, int expected)
     : rentalId(nextId++),
-    userId(uid),
-    carId(cid),
+    userId(uId),
+    carId(cId),
     startDay(start),
     expectedReturnDay(expected),
     actualReturnDay(0),
