@@ -131,6 +131,7 @@
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
+    <ClCompile Include="GuestMenu.cpp" />
     <ClCompile Include="Maintenance.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="PasswordHasher.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
+    <ClInclude Include="GuestMenu.h" />
     <ClInclude Include="Maintenance.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="PasswordHasher.h" />
