@@ -14,6 +14,9 @@ void Fleet::addCar(Car* car) {
     index.insert(car->getId(), car);
 }
 
+CarList& Fleet::getCarList() {
+    return cars;
+}
 
 void Fleet::showCarList() const {
     CarNode* cur = cars.getHead();

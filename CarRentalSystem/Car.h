@@ -2,8 +2,8 @@
 #ifndef CAR_H
 #define CAR_H
 
-#include "ReservationQueue.h"
-#include "MaintenanceList.h"
+//#include "ReservationQueue.h"
+//#include "MaintenanceList.h"
 #include <string>
 using std::string;
 
@@ -28,8 +28,8 @@ private:
     double pricePerDay;
     CarStatus status;
 
-    ReservationQueue* reservationQueue;
-    MaintenanceList* maintenanceHistory;
+    //ReservationQueue* reservationQueue;
+    //MaintenanceList* maintenanceHistory;
 
 
 public:
@@ -45,8 +45,8 @@ public:
     CarStatus getStatus() const;
     void setStatus(CarStatus s);
 
-    ReservationQueue* getReservationQueue() const;
-    MaintenanceList* getMaintenanceHistory() const;
+    //ReservationQueue* getReservationQueue() const;
+    //MaintenanceList* getMaintenanceHistory() const;
 
 };
 
