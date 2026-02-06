@@ -18,7 +18,7 @@ public:
 
     Maintenance(int day,int CarId, const string& description, double cost);
 
-    int getarId() const;
+    int getCarId() const;
     int getId() const;
     int getDay() const;
     string getDescription() const;
