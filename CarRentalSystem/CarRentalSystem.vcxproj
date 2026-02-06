@@ -132,13 +132,16 @@
     <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
     <ClCompile Include="CustomerMenu.cpp" />
+    <ClCompile Include="FileName.cpp" />
     <ClCompile Include="GuestMenu.cpp" />
     <ClCompile Include="Maintenance.cpp" />
+    <ClCompile Include="MaintenanceList.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="ManagerMenu.cpp" />
     <ClCompile Include="PasswordHasher.cpp" />
     <ClCompile Include="Rental.cpp" />
     <ClCompile Include="Reservation.cpp" />
+    <ClCompile Include="ReservationQueue.cpp" />
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="StaffMenu.cpp" />
     <ClCompile Include="UserList.cpp" />
@@ -153,17 +156,22 @@
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="GuestMenu.h" />
     <ClInclude Include="Maintenance.h" />
+    <ClInclude Include="MaintenanceList.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="ManagerMenu.h" />
     <ClInclude Include="PasswordHasher.h" />
     <ClInclude Include="Rental.h" />
     <ClInclude Include="Reservation.h" />
+    <ClInclude Include="ReservationQueue.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="StaffMenu.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserList.h" />
     <ClInclude Include="UserNode.h" />
     <ClInclude Include="UserStorage.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="users.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
