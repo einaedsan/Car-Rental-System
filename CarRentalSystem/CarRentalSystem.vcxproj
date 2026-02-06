@@ -135,9 +135,14 @@
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Fleet.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="FleetStorage.cpp" />
+>>>>>>> 38a8d71 (Save local changes before sync)
     <ClCompile Include="GuestMenu.cpp" />
     <ClCompile Include="Maintenance.cpp" />
     <ClCompile Include="MaintenanceList.cpp" />
+    <ClCompile Include="MaintenanceStorage.cpp" />
     <ClCompile Include="Manager.cpp" />
     <ClCompile Include="ManagerMenu.cpp" />
     <ClCompile Include="PasswordHasher.cpp" />
@@ -164,9 +169,14 @@
     <ClInclude Include="CarNode.h" />
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="Fleet.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="FleetStorage.h" />
+>>>>>>> 38a8d71 (Save local changes before sync)
     <ClInclude Include="GuestMenu.h" />
     <ClInclude Include="Maintenance.h" />
     <ClInclude Include="MaintenanceList.h" />
+    <ClInclude Include="MaintenanceStorage.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="ManagerMenu.h" />
     <ClInclude Include="PasswordHasher.h" />
