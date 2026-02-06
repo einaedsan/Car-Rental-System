@@ -1,7 +1,6 @@
 ﻿#include "ReservationStorage.h"
 #include <fstream>
 #include <iostream>
-
 using namespace std;
 
 void ReservationStorage::saveToCSV(const ReservationQueue& reservations, const string& filename) {
@@ -13,9 +12,8 @@ void ReservationStorage::saveToCSV(const ReservationQueue& reservations, const s
 
     file << "reservationId,userId,carId,startDay,endDay\n";
 
-    // دسترسی به head صف
-    ReservationNode* cur = reservations.head; // بعدا اگر نیاز بود getter بساز
-    while (cur != nullptr) {
+    ReservationNode* cur = reservations.getHead();  // getter برای head باید داشته باشی
+    while (cur) {
         Reservation* r = cur->data;
         file << r->getReservationId() << ","
             << r->getUserId() << ","
@@ -38,7 +36,6 @@ void ReservationStorage::loadFromCSV(ReservationQueue& reservations, const strin
 
     string line;
     getline(file, line); // skip header
-
     int maxId = 0;
 
     while (getline(file, line)) {
@@ -67,15 +64,18 @@ void ReservationStorage::loadFromCSV(ReservationQueue& reservations, const strin
         // endDay
         int endDay = stoi(line.substr(pos));
 
-        // ساخت رزرو و اضافه کردن به صف
+        // ساخت رزرو
         Reservation* r = new Reservation(userId, carId, startDay, endDay);
+        r->setReservationId(resId);  // همون مقدار قبلی از CSV
+
+        // اضافه کردن به صف
         reservations.addReservation(r);
 
         if (resId > maxId) maxId = resId;
     }
 
     // همگام سازی nextId
-    Reservation::nextId = maxId + 1;
+    Reservation::syncNextId(maxId);
 
     file.close();
     cout << "✅ Reservations loaded from CSV\n";

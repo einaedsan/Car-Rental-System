@@ -49,4 +49,3 @@ Reservation* ReservationQueue::popNext() {
 bool ReservationQueue::isEmpty() const {
     return head == NULL;
 }
-ReservationNode* ReservationQueue::getHead() const { return head; }

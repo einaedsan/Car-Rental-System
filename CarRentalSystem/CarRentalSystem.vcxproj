@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AuthManager.cpp" />
+    <ClCompile Include="AVLTree.cpp" />
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="FileName.cpp" />
+    <ClCompile Include="Fleet.cpp" />
     <ClCompile Include="GuestMenu.cpp" />
     <ClCompile Include="Maintenance.cpp" />
     <ClCompile Include="MaintenanceList.cpp" />
@@ -140,20 +142,28 @@
     <ClCompile Include="ManagerMenu.cpp" />
     <ClCompile Include="PasswordHasher.cpp" />
     <ClCompile Include="Rental.cpp" />
+    <ClCompile Include="RentalQueue.cpp" />
+    <ClCompile Include="RentalQueueNode.cpp" />
+    <ClCompile Include="RentalStorage.cpp" />
     <ClCompile Include="Reservation.cpp" />
     <ClCompile Include="ReservationQueue.cpp" />
+    <ClCompile Include="ReservationStorage.cpp" />
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="StaffMenu.cpp" />
+    <ClCompile Include="SystemConfig.cpp" />
     <ClCompile Include="UserList.cpp" />
     <ClCompile Include="UserStorage.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthManager.h" />
+    <ClInclude Include="AVLNode.h" />
+    <ClInclude Include="AVLTree.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
     <ClInclude Include="CustomerMenu.h" />
+    <ClInclude Include="Fleet.h" />
     <ClInclude Include="GuestMenu.h" />
     <ClInclude Include="Maintenance.h" />
     <ClInclude Include="MaintenanceList.h" />
@@ -161,10 +171,15 @@
     <ClInclude Include="ManagerMenu.h" />
     <ClInclude Include="PasswordHasher.h" />
     <ClInclude Include="Rental.h" />
+    <ClInclude Include="RentalQueue.h" />
+    <ClInclude Include="RentalQueueNode.h" />
+    <ClInclude Include="RentalStorage.h" />
     <ClInclude Include="Reservation.h" />
     <ClInclude Include="ReservationQueue.h" />
+    <ClInclude Include="ReservationStorage.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="StaffMenu.h" />
+    <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserList.h" />
     <ClInclude Include="UserNode.h" />

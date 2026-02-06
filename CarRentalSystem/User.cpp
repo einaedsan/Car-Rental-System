@@ -1,4 +1,4 @@
-#include "User.h"
+﻿#include "User.h"
 
 User::User() {
     isBlocked = false;
@@ -44,3 +44,8 @@ string User::getPasswordHash() const {
     return passwordHash;
 }
 
+bool User::canRent() const {
+    return !isBlocked &&
+        activeRentalsCount < SystemConfig::MAX_ACTIVE_RENTALS &&
+        debt <= SystemConfig::MAX_DEBT;
+}

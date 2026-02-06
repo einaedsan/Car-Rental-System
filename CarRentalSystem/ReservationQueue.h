@@ -24,6 +24,8 @@ public:
     Reservation* popNext();
     bool hasConflict(int startDay, int endDay) const;
     bool isEmpty() const;
+    ReservationNode* getHead() const { return head; }
+
 };
 
 #endif

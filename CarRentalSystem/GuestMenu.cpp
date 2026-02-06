@@ -4,16 +4,11 @@
 #include "ManagerMenu.h"
 #include "AuthManager.h"
 #include "UserList.h"
-#include "Fleet.h"
 #include <iostream>
 
 using namespace std;
 
-GuestMenu::GuestMenu(Fleet* f) {
-    fleet = f;
-}
-
-void GuestMenu::show(UserList& users, Fleet& fleet) {
+void GuestMenu::show(UserList& users) {
     AuthManager auth;
     bool exitMenu = false;
 
@@ -21,7 +16,7 @@ void GuestMenu::show(UserList& users, Fleet& fleet) {
         cout << "\n=== Guest Menu ===\n";
         cout << "1. Register / Login\n";
         cout << "2. Search Cars\n";
-        cout << "3. Show Car \n";
+        cout << "3. Show Car Details\n";
         cout << "0. Exit\n";
         cout << "Select option: ";
 
@@ -70,103 +65,12 @@ void GuestMenu::show(UserList& users, Fleet& fleet) {
                 break;
             }
 
-        case 2: {
-            bool exitFilterMenu = false;
-            while (!exitFilterMenu) {
-                cout << "\n=== Filter Cars ===\n";
-                cout << "1. By Brand\n";
-                cout << "2. By Type\n";
-                cout << "3. By Price\n";
-                cout << "0. Back\n";
-                cout << "Select option: ";
-                int filterChoice;
-                cin >> filterChoice;
-
-                switch (filterChoice) {
-
-                case 1: {
-                    fleet.showAllBrands();
-                    cout << "Enter brand: ";
-                    string brand;
-                    cin >> brand;
-                    fleet.showCarsByBrand(brand);
-                    while (true) {
-                        cout << "\nEnter car ID for details (0 to return): ";
-                        int id;
-                        cin >> id;
-
-                        if (id == 0)
-                            break;
-                        fleet.showCarDetails(id);
-                    }
-                    break;
-                }
-
-                case 2: {
-                    fleet.showAllTypes();
-                    cout << "Enter type: ";
-                    string type;
-                    cin >> type;
-                    fleet.showCarsByType(type);
-                    while (true) {
-                        cout << "\nEnter car ID for details (0 to return): ";
-                        int id;
-                        cin >> id;
-
-                        if (id == 0)
-                            break;
-
-                        fleet.showCarDetails(id);
-                    }
-                    break;
-                }
-
-                case 3: {
-                    double price;
-                    cout << "Enter max price: ";
-                    cin >> price;
-
-                    fleet.filterCars(NULL, NULL, price);
-
-                    while (true) {
-                        cout << "\nEnter car ID for details (0 to return): ";
-                        int id;
-                        cin >> id;
-
-                        if (id == 0)
-                            break;
-
-                        fleet.showCarDetails(id);
-                    }
-                    break;
-                }
-
-                case 0:
-                    exitFilterMenu = true;
-                    break;
-
-                default:
-                    cout << "Invalid option.\n";
-                }
-            }
-
+        case 2:
+            cout << "Search Cars feature coming soon...\n";
             break;
-        }
-
-
-        case 3: {
-            fleet.showCarList();
-            while (true) {
-                cout << "\nEnter car ID to view details (0 to return): ";
-                int carId;
-                cin >> carId;
-                if (carId == 0) {
-                    break;
-                }
-                fleet.showCarDetails(carId);
-            }
+        case 3:
+            cout << "Show Car Details feature coming soon...\n";
             break;
-        }  
         case 0:
             exitMenu = true;
             break;
