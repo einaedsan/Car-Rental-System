@@ -28,45 +28,43 @@ void GuestMenu::show(UserList& users) {
             cout << "\nAre you:\n1. Customer\n2. Staff\n3. Manager\nSelect option: ";
             int roleChoice;
             cin >> roleChoice;
-
             switch (roleChoice) {
-                
-                case 1: { // Customer
-                    int hasAccount;
-                    cout << "Do you have an account? (1=Yes, 2=No): ";
-                    cin >> hasAccount;
+            case 1: { // Customer
+                int hasAccount;
+                cout << "Do you have an account? (1=Yes, 2=No): ";
+                cin >> hasAccount;
 
-                    User* user = nullptr;
+                User* user = nullptr;
 
-                    if (hasAccount == 1) {
-                        // Login existing customer
-                        user = AuthManager::login(users);
-                    }
-                    else if (hasAccount == 2) {
-                        // Register new customer
-                        AuthManager::signUp(users);
-                        // بعد از ثبت نام، کاربر رو لاگین کن
-                        user = AuthManager::login(users);
-                    }
-
-                    if (user) {
-                        // اگر موفق شد، وارد منوی مشتری بشه
-                        CustomerMenu::show(user);
-                    }
-                    break;
+                if (hasAccount == 1) {
+                    user = AuthManager::login(users);
+                }
+                else if (hasAccount == 2) {
+                    AuthManager::signUp(users);
+                    user = AuthManager::login(users);
                 }
 
+                if (user) {
+                    CustomerMenu::show(user);
+                }
+                break; // ← این break برای case 1
+            }
+
             case 2: // Staff
-               if (AuthManager::loginStaff()) StaffMenu:show();
+                if (AuthManager::loginStaff())
+                    StaffMenu::show();
                 break;
+
             case 3: // Manager
-                if (AuthManager::loginManager()) ManagerMenu:show();
+                if (AuthManager::loginManager())
+                    ManagerMenu::show();
                 break;
+
             default:
                 cout << "Invalid option!\n";
+                break;
             }
-            break;
-        }
+
         case 2:
             cout << "Search Cars feature coming soon...\n";
             break;
@@ -79,5 +77,7 @@ void GuestMenu::show(UserList& users) {
         default:
             cout << "Invalid option! Try again.\n";
         }
+        }
     }
 }
+    

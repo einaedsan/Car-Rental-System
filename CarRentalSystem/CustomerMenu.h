@@ -1,8 +1,8 @@
 #pragma once
-#include "UserList.h"
+#include "User.h"
 #include <iostream>
 
 class CustomerMenu {
 public:
-    static void show(UserList& users);
+    static void show(User* user); 
 };

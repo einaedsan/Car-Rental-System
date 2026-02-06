@@ -9,7 +9,7 @@ struct CarNode {
     CarNode* prev;
     CarNode* next;
 
-    CarNode(Car* car): data(car), prev(NULL), next(NULL) {}
+    CarNode(Car* car): data(car), prev(nullptr), next(nullptr) {}
 };
 
 #endif

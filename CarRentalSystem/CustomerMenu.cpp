@@ -1,50 +1,37 @@
 #include "CustomerMenu.h"
-#include "AuthManager.h"
 
-using namespace std;
-
-void CustomerMenu::show(UserList& users) {
+void CustomerMenu::show(User* user) {
     bool exitMenu = false;
-
     while (!exitMenu) {
-        cout << "\n=== Customer Menu ===\n";
-        cout << "1. Create Reservation\n";
-        cout << "2. View Reservations & Rentals\n";
-        cout << "3. Extend Rental\n";
-        cout << "4. Pay Fees\n";
-        cout << "5. Search Cars\n";
-        cout << "6. Show Car Details\n";
-        cout << "0. Logout\n";
-        cout << "Select option: ";
+        std::cout << "\n=== Customer Menu ===\n";
+        std::cout << "1. Create Reservation\n";
+        std::cout << "2. View Reservations\n";
+        std::cout << "3. Renew Rental\n";
+        std::cout << "4. Pay Fees\n";
+        std::cout << "0. Logout\n";
+        std::cout << "Select option: ";
 
         int choice;
-        cin >> choice;
+        std::cin >> choice;
 
         switch (choice) {
         case 1:
-            cout << "[Placeholder] Create Reservation feature coming soon...\n";
+            std::cout << "Create Reservation feature coming soon...\n";
             break;
         case 2:
-            cout << "[Placeholder] View Reservations & Rentals feature coming soon...\n";
+            std::cout << "View Reservations feature coming soon...\n";
             break;
         case 3:
-            cout << "[Placeholder] Extend Rental feature coming soon...\n";
+            std::cout << "Renew Rental feature coming soon...\n";
             break;
         case 4:
-            cout << "[Placeholder] Pay Fees feature coming soon...\n";
-            break;
-        case 5:
-            cout << "[Placeholder] Search Cars feature coming soon...\n";
-            break;
-        case 6:
-            cout << "[Placeholder] Show Car Details feature coming soon...\n";
+            std::cout << "Pay Fees feature coming soon...\n";
             break;
         case 0:
             exitMenu = true;
-            cout << "Logging out...\n";
             break;
         default:
-            cout << "Invalid option! Try again.\n";
+            std::cout << "Invalid option! Try again.\n";
         }
     }
 }

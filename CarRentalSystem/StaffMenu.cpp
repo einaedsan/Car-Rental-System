@@ -1,39 +1,37 @@
 #include "StaffMenu.h"
-using namespace std;
 
 void StaffMenu::show() {
     bool exitMenu = false;
-
     while (!exitMenu) {
-        cout << "\n=== Staff Menu ===\n";
-        cout << "1. Convert Reservation to Rental\n";
-        cout << "2. Process Car Return and Late Fees\n";
-        cout << "3. Process Reservation Queue\n";
-        cout << "4. Add/Edit Cars in Fleet\n";
-        cout << "0. Logout\n";
-        cout << "Select option: ";
+        std::cout << "\n=== Staff Menu ===\n";
+        std::cout << "1. Convert Reservation to Rental\n";
+        std::cout << "2. Process Car Return\n";
+        std::cout << "3. Process Reservation Queue\n";
+        std::cout << "4. Add/Edit Car Fleet\n";
+        std::cout << "0. Logout\n";
+        std::cout << "Select option: ";
 
         int choice;
-        cin >> choice;
+        std::cin >> choice;
 
         switch (choice) {
         case 1:
-            cout << "[Placeholder] Convert reservation to rental...\n";
+            std::cout << "Convert Reservation to Rental coming soon...\n";
             break;
         case 2:
-            cout << "[Placeholder] Process car return and calculate late fees...\n";
+            std::cout << "Process Car Return coming soon...\n";
             break;
         case 3:
-            cout << "[Placeholder] Process reservation queue...\n";
+            std::cout << "Process Reservation Queue coming soon...\n";
             break;
         case 4:
-            cout << "[Placeholder] Add/Edit cars in fleet...\n";
+            std::cout << "Add/Edit Car Fleet coming soon...\n";
             break;
         case 0:
             exitMenu = true;
             break;
         default:
-            cout << "Invalid option! Try again.\n";
+            std::cout << "Invalid option! Try again.\n";
         }
     }
 }
