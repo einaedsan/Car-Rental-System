@@ -127,7 +127,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AuthManager.cpp" />
+    <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
+    <ClCompile Include="Maintenance.cpp" />
+    <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="PasswordHasher.cpp" />
+    <ClCompile Include="Rental.cpp" />
+    <ClCompile Include="Reservation.cpp" />
+    <ClCompile Include="Staff.cpp" />
+    <ClCompile Include="UserList.cpp" />
+    <ClCompile Include="UserStorage.cpp" />
+    <ClCompile Include="Usre.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AuthManager.h" />
+    <ClInclude Include="Car.h" />
+    <ClInclude Include="Maintenance.h" />
+    <ClInclude Include="Manager.h" />
+    <ClInclude Include="PasswordHasher.h" />
+    <ClInclude Include="Rental.h" />
+    <ClInclude Include="Reservation.h" />
+    <ClInclude Include="Staff.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserList.h" />
+    <ClInclude Include="UserNode.h" />
+    <ClInclude Include="UserStorage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
