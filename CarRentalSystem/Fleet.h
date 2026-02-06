@@ -13,8 +13,8 @@ private:
 public:
     Fleet();
 
+    CarList& getCarList();
     void addCar(Car* car);
-
     void showCarList() const;                 // فهرست ساده
     void showCarDetails(int carId) const;     // جزئیات کامل (AVL)
     void filterCars(const char* brand, const char* type, double maxPrice) const;  // فیلتر
