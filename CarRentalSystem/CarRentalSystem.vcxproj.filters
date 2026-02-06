@@ -14,6 +14,7 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+
   <ItemGroup>
     <ClCompile Include="CarRentalSystem.cpp">
       <Filter>Source Files</Filter>
@@ -36,6 +37,9 @@
     <ClCompile Include="Staff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AuthManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UserList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -48,13 +52,17 @@
     <ClCompile Include="Car.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="AuthManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CarList.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+=======
+>>>>>>> User
   </ItemGroup>
+
   <ItemGroup>
     <ClInclude Include="Maintenance.h">
       <Filter>Header Files</Filter>
@@ -74,6 +82,9 @@
     <ClInclude Include="Staff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AuthManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="User.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,6 +100,7 @@
     <ClInclude Include="Car.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="AuthManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -98,5 +110,7 @@
     <ClInclude Include="CarList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> User
   </ItemGroup>
 </Project>
