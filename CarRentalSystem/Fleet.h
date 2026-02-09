@@ -14,6 +14,7 @@ public:
     Fleet();
 
     CarList& getCarList();
+    const CarList& getCarList() const;
     void addCar(Car* car);
     void showCarList() const;                 // فهرست ساده
     void showCarDetails(int carId) const;     // جزئیات کامل (AVL)

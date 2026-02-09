@@ -18,6 +18,10 @@ CarList& Fleet::getCarList() {
     return cars;
 }
 
+const CarList& Fleet::getCarList() const {
+    return cars;
+}
+
 void Fleet::showCarList() const {
     CarNode* cur = cars.getHead();
 
