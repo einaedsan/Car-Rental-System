@@ -9,8 +9,7 @@
 class GuestMenu {
 
 public:
-    Fleet* fleet;
-    GuestMenu(Fleet* fleet);
+
     static void show(UserList& users, Fleet& fleet);
 };
 

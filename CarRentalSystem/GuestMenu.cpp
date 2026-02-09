@@ -8,10 +8,6 @@
 #include <iostream>
 
 using namespace std;
-//احتمالا باید تغییراتی بدم و کاری کنم ک شی fleetپاس داده باشه و یک بخش از کلاس مهمان نباشه
-GuestMenu::GuestMenu(Fleet* f) {
-    fleet = f;
-}
 
 void GuestMenu::show(UserList& users, Fleet& fleet) {
     AuthManager auth;
