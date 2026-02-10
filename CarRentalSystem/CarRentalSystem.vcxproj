@@ -132,12 +132,11 @@
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
+    <ClCompile Include="CarStorage.cpp" />
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Fleet.cpp" />
-
     <ClCompile Include="FleetStorage.cpp" />
-
     <ClCompile Include="GuestMenu.cpp" />
     <ClCompile Include="Maintenance.cpp" />
     <ClCompile Include="MaintenanceList.cpp" />
@@ -150,7 +149,7 @@
     <ClCompile Include="RentalQueueNode.cpp" />
     <ClCompile Include="RentalStorage.cpp" />
     <ClCompile Include="Reservation.cpp" />
-    <ClCompile Include="ReservationQueue.cpp" />
+    <ClCompile Include="ReservationPriorityQueue.cpp" />
     <ClCompile Include="ReservationStorage.cpp" />
     <ClCompile Include="Staff.cpp" />
     <ClCompile Include="StaffMenu.cpp" />
@@ -166,11 +165,10 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
+    <ClInclude Include="CarStorage.h" />
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="Fleet.h" />
-
     <ClInclude Include="FleetStorage.h" />
-
     <ClInclude Include="GuestMenu.h" />
     <ClInclude Include="Maintenance.h" />
     <ClInclude Include="MaintenanceList.h" />
@@ -183,7 +181,7 @@
     <ClInclude Include="RentalQueueNode.h" />
     <ClInclude Include="RentalStorage.h" />
     <ClInclude Include="Reservation.h" />
-    <ClInclude Include="ReservationQueue.h" />
+    <ClInclude Include="ReservationPriorityQueue.h" />
     <ClInclude Include="ReservationStorage.h" />
     <ClInclude Include="Staff.h" />
     <ClInclude Include="StaffMenu.h" />

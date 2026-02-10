@@ -1,9 +1,10 @@
 #pragma once
+
 #ifndef CAR_H
 #define CAR_H
 
-//#include "ReservationQueue.h"
-//#include "MaintenanceList.h"
+
+#include "MaintenanceList.h"
 #include <string>
 using std::string;
 
@@ -29,12 +30,15 @@ private:
     CarStatus status;
 
     //ReservationQueue* reservationQueue;
-    //MaintenanceList* maintenanceHistory;
+    MaintenanceList* maintenanceHistory;
 
 
 public:
     //Car();
     Car(string Plate,string Brand, string Model, string Type, double Price);
+    Car(int id, string plate, string brand, string model,
+        string type, double price, CarStatus status);
+
 
     int getId() const;
     string getPlate() const;
@@ -44,9 +48,10 @@ public:
     double getPricePerDay() const;
     CarStatus getStatus() const;
     void setStatus(CarStatus s);
+    static void syncNextId(int maxId);
 
     //ReservationQueue* getReservationQueue() const;
-    //MaintenanceList* getMaintenanceHistory() const;
+    MaintenanceList* getMaintenanceHistory() const;
 
 };
 

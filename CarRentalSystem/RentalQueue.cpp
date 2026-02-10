@@ -26,3 +26,14 @@ void RentalQueue::dequeue() {
 Rental* RentalQueue::peek() const {
     return front ? front->rental : nullptr;
 }
+
+
+Rental* RentalQueue::findById(int rentalId) const {
+    RentalQueueNode* cur = front;
+    while (cur) {
+        if (cur->rental->getId() == rentalId)
+            return cur->rental;
+        cur = cur->next;
+    }
+    return nullptr;
+}

@@ -1,17 +1,25 @@
-#pragma once
+﻿#pragma once
 #ifndef STAFF_H
 #define STAFF_H
 
 #include "User.h"
+#include "Fleet.h"
+#include "ReservationPriorityQueue.h"
+#include "RentalQueue.h"
 
 class Staff : public User {
 private:
     static Staff* instance;
-    Staff();
+    Staff(); // private constructor
 
 public:
     static Staff* getInstance();
 
+    // وظایف اصلی Staff
+    void convertReservationToRental(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
+    void processCarReturn(Fleet& fleet, RentalQueue& rentals);
+    void processReservationQueue(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
+    void addEditCar(Fleet& fleet);
 };
 
 #endif

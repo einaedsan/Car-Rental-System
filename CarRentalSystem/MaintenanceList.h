@@ -24,6 +24,7 @@ public:
 
     void addMaintenance(Maintenance* m);
     MaintenanceNode* getHead() const;
+    bool hasPendingMaintenance() const;
 };
 
 #endif

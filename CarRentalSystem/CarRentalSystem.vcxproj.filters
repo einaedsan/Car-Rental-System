@@ -20,11 +20,17 @@
     <ClCompile Include="User.cpp" />
     <ClCompile Include="MaintenanceList.cpp" />
     <ClCompile Include="FileName.cpp" />
-    <ClCompile Include="ReservationQueue.cpp" />
     <ClCompile Include="AVLTree.cpp" />
     <ClCompile Include="Fleet.cpp" />
     <ClCompile Include="MaintenanceStorage.cpp" />
     <ClCompile Include="FleetStorage.cpp" />
+    <ClCompile Include="RentalQueue.cpp" />
+    <ClCompile Include="RentalQueueNode.cpp" />
+    <ClCompile Include="RentalStorage.cpp" />
+    <ClCompile Include="ReservationStorage.cpp" />
+    <ClCompile Include="SystemConfig.cpp" />
+    <ClCompile Include="ReservationPriorityQueue.cpp" />
+    <ClCompile Include="CarStorage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthManager.h" />
@@ -46,12 +52,18 @@
     <ClInclude Include="UserNode.h" />
     <ClInclude Include="UserStorage.h" />
     <ClInclude Include="MaintenanceList.h" />
-    <ClInclude Include="ReservationQueue.h" />
     <ClInclude Include="AVLNode.h" />
     <ClInclude Include="AVLTree.h" />
     <ClInclude Include="Fleet.h" />
     <ClInclude Include="MaintenanceStorage.h" />
     <ClInclude Include="FleetStorage.h" />
+    <ClInclude Include="RentalQueue.h" />
+    <ClInclude Include="RentalQueueNode.h" />
+    <ClInclude Include="RentalStorage.h" />
+    <ClInclude Include="ReservationStorage.h" />
+    <ClInclude Include="SystemConfig.h" />
+    <ClInclude Include="ReservationPriorityQueue.h" />
+    <ClInclude Include="CarStorage.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="users.csv" />

@@ -6,11 +6,16 @@
 #include "Fleet.h"
 #include <iostream>
 
+class ReservationPriorityQueue;
+class RentalQueue;
+
 class GuestMenu {
 
 public:
 
-    static void show(UserList& users, Fleet& fleet);
+    static void show(UserList& users, Fleet& fleet,
+        ReservationPriorityQueue& reservations,
+        RentalQueue& rentals);
 };
 
 #endif

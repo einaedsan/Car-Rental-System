@@ -1,37 +1,43 @@
 #include "StaffMenu.h"
+#include "Staff.h"
+#include <iostream>
 
-void StaffMenu::show() {
+using namespace std;
+
+void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals) {
+    Staff* staff = Staff::getInstance();
+
     bool exitMenu = false;
     while (!exitMenu) {
-        std::cout << "\n=== Staff Menu ===\n";
-        std::cout << "1. Convert Reservation to Rental\n";
-        std::cout << "2. Process Car Return\n";
-        std::cout << "3. Process Reservation Queue\n";
-        std::cout << "4. Add/Edit Car Fleet\n";
-        std::cout << "0. Logout\n";
-        std::cout << "Select option: ";
+        cout << "\n=== Staff Menu ===\n";
+        cout << "1. Convert Reservation to Rental\n";
+        cout << "2. Process Car Return\n";
+        cout << "3. Process Reservation Queue\n";
+        cout << "4. Add/Edit Car Fleet\n";
+        cout << "0. Logout\n";
+        cout << "Select option: ";
 
         int choice;
-        std::cin >> choice;
+        cin >> choice;
 
         switch (choice) {
         case 1:
-            std::cout << "Convert Reservation to Rental coming soon...\n";
+            staff->convertReservationToRental(fleet, reservations, rentals);
             break;
         case 2:
-            std::cout << "Process Car Return coming soon...\n";
+            staff->processCarReturn(fleet, rentals);
             break;
         case 3:
-            std::cout << "Process Reservation Queue coming soon...\n";
+            staff->processReservationQueue(fleet, reservations, rentals);
             break;
         case 4:
-            std::cout << "Add/Edit Car Fleet coming soon...\n";
+            staff->addEditCar(fleet);
             break;
         case 0:
             exitMenu = true;
             break;
         default:
-            std::cout << "Invalid option! Try again.\n";
+            cout << "Invalid option! Try again.\n";
         }
     }
 }

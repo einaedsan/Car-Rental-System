@@ -19,6 +19,8 @@ public:
     void dequeue();                  // حذف اولین Rental
     Rental* peek() const;            // دیدن اولین Rental
     RentalQueueNode* frontNode() const { return front; } // getter برای CSV و ذخیره/بارگذاری
+
+    Rental* findById(int rentalId) const;
 };
 
 #endif

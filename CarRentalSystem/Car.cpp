@@ -16,8 +16,8 @@ Car::Car(string Plate, string Brand, string Model, string Type, double Price)
     type = Type;
     pricePerDay = Price;
     status = AVAILABLE;
-    //reservationQueue = new ReservationQueue();
-    //maintenanceHistory = new MaintenanceList();
+  
+    maintenanceHistory = new MaintenanceList();
 
 }
 
@@ -57,6 +57,21 @@ void Car::setStatus(CarStatus s) {
 //    return reservationQueue;
 //}
 //
-//MaintenanceList* Car::getMaintenanceHistory() const {
-//    return maintenanceHistory;
-//}
+MaintenanceList* Car::getMaintenanceHistory() const {
+    return maintenanceHistory;
+}
+
+Car::Car(int Id, string Plate, string Brand, string Model,
+    string Type, double Price, CarStatus Status)
+    : id(Id), plate(Plate), brand(Brand), model(Model),
+    type(Type), pricePerDay(Price), status(Status) {
+
+    if (Id >= nextId)
+        nextId = Id + 1;
+    maintenanceHistory = new MaintenanceList();
+}
+
+
+void Car::syncNextId(int maxId) {
+    nextId = maxId + 1;
+}

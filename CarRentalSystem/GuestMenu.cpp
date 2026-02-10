@@ -5,11 +5,16 @@
 #include "AuthManager.h"
 #include "UserList.h"
 #include "Fleet.h"
+
+#include "ReservationPriorityQueue.h"
+#include "RentalQueue.h"
 #include <iostream>
 
 using namespace std;
 
-void GuestMenu::show(UserList& users, Fleet& fleet) {
+void GuestMenu::show(UserList& users, Fleet& fleet,
+    ReservationPriorityQueue& reservations,
+    RentalQueue& rentals) {
     AuthManager auth;
     bool exitMenu = false;
 
@@ -53,7 +58,8 @@ void GuestMenu::show(UserList& users, Fleet& fleet) {
 
             case 2: // Staff
                 if (AuthManager::loginStaff())
-                    StaffMenu::show();
+                    StaffMenu::show(fleet, reservations, rentals);
+
                 break;
 
             case 3: // Manager
