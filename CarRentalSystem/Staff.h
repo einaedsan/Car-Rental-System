@@ -22,6 +22,8 @@ public:
     void addEditCar(Fleet& fleet);
     void sendCarToMaintenance(Fleet& fleet);
     void finishMaintenance(Fleet& fleet);
+    void registerMaintenance(Fleet& fleet);
+
 };
 
 #endif

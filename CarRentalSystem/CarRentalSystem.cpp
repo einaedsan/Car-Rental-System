@@ -67,7 +67,7 @@ int main() {
         Car* car = fleet.findCarById(m->getCarId());
         if (car)
             //car->getMaintenanceHistory()->addMaintenance(m);
-            car->addMaintenance(m);
+            car->loadMaintenance(m);
         curM = curM->next;
     }
 

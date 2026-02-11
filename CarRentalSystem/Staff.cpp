@@ -3,6 +3,8 @@
 #include "RentalStorage.h"
 #include "FleetStorage.h"
 #include"ReservationStorage.h"
+#include "MaintenanceStorage.h"
+
 
 using namespace std;
 
@@ -285,4 +287,53 @@ void Staff::finishMaintenance(Fleet& fleet) {
 
     FleetStorage::saveCars(fleet, "cars.csv");
 }
+
+void Staff::registerMaintenance(Fleet& fleet) {
+    int carId;
+
+    fleet.showCarList();
+    cout << "Enter Car ID to register maintenance (0 to cancel): ";
+    cin >> carId;
+
+    if (carId == 0)
+        return;
+
+    Car* car = fleet.findCarById(carId);
+
+    if (!car) {
+        cout << "Car not found!\n";
+        return;
+    }
+
+    int day;
+    string description;
+    double cost;
+
+    cout << "Enter maintenance day: ";
+    cin >> day;
+
+    cin.ignore(); // مهم برای getline
+
+    cout << "Enter description: ";
+    getline(cin, description);
+
+    cout << "Enter cost: ";
+    cin >> cost;
+
+    // ساخت آبجکت تعمیر
+    Maintenance* m = new Maintenance(day, carId, description, cost);
+
+    // اضافه کردن به ماشین
+    car->addMaintenance(m);
+
+    cout << "Maintenance registered successfully.\n";
+
+    // ذخیره ماشین‌ها
+    FleetStorage::saveCars(fleet, "cars.csv");
+
+    // ذخیره تعمیرات جداگانه
+    if (car->getMaintenanceHistory())
+        MaintenanceStorage::save(*car->getMaintenanceHistory(), "maintenance.csv");
+}
+
 

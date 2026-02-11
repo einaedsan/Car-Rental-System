@@ -16,6 +16,7 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
         cout << "4. Add/Edit Car Fleet\n";
         cout << "5. Send Car To Maintenance\n";
         cout << "6. Finish Maintenance\n";
+        cout << "7. Register Maintenance\n";
         cout << "0. Logout\n";
         cout << "Select option: ";
 
@@ -45,6 +46,10 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
 
         case 6:
             staff->finishMaintenance(fleet);
+            break;
+
+        case 7:
+            staff->registerMaintenance(fleet);
             break;
 
         case 0:
