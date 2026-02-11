@@ -1,11 +1,6 @@
-#include "Car.h"
+﻿#include "Car.h"
 
 int Car::nextId = 1;
-
-//Car::Car(): id(0), pricePerDay(0), status(AVAILABLE)) {}
-
-//Car::Car() : id(0), pricePerDay(0), status(AVAILABLE), reservationQueue(NULL), maintenanceHistory(NULL) {}
-
 
 Car::Car(string Plate, string Brand, string Model, string Type, double Price)
 {
@@ -18,7 +13,26 @@ Car::Car(string Plate, string Brand, string Model, string Type, double Price)
     status = AVAILABLE;
   
     maintenanceHistory = new MaintenanceList();
+    totalMaintenanceCost = 0;
 
+}
+
+Car::Car(int Id, string Plate, string Brand, string Model,
+    string Type, double Price, CarStatus Status)
+    : id(Id), plate(Plate), brand(Brand), model(Model),
+    type(Type), pricePerDay(Price), status(Status)
+{
+    if (Id >= nextId)
+        nextId = Id + 1;
+
+    maintenanceHistory = new MaintenanceList();
+
+    totalMaintenanceCost = 0;
+}
+
+Car::~Car()
+{
+    delete maintenanceHistory;
 }
 
 int Car::getId() const {
@@ -61,17 +75,6 @@ MaintenanceList* Car::getMaintenanceHistory() const {
     return maintenanceHistory;
 }
 
-Car::Car(int Id, string Plate, string Brand, string Model,
-    string Type, double Price, CarStatus Status)
-    : id(Id), plate(Plate), brand(Brand), model(Model),
-    type(Type), pricePerDay(Price), status(Status) {
-
-    if (Id >= nextId)
-        nextId = Id + 1;
-    maintenanceHistory = new MaintenanceList();
-}
-
-
 void Car::syncNextId(int maxId) {
     nextId = maxId + 1;
 }
@@ -81,5 +84,32 @@ ReservationPriorityQueue& Car::getReservationQueue() {
 }
 
 bool Car::isAvailable(int startDay, int endDay) const {
+
+    if (status == MAINTENANCE || status == RENTED)
+        return false;
+
     return !reservations.hasConflict(startDay, endDay);
+}
+
+void Car::addMaintenance(Maintenance* m)
+{
+    if (!m) return;
+
+    maintenanceHistory->addMaintenance(m);
+    totalMaintenanceCost += m->getCost();
+    status = MAINTENANCE; 
+}
+
+
+void Car::loadMaintenance(Maintenance* m) {
+    if (!m) return;
+
+    maintenanceHistory->addMaintenance(m);
+    totalMaintenanceCost += m->getCost();
+    // اینجا status تغییر نمیکنیم چون از فایل لود شده
+}
+
+double Car::getTotalMaintenanceCost() const 
+{
+    return totalMaintenanceCost;
 }

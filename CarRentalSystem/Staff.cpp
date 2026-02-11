@@ -123,6 +123,7 @@ void Staff::convertReservationToRental(Fleet& fleet, ReservationPriorityQueue& r
         return;
     }
 
+
     std::cout << "=== Reservations ===\n";
     for (int i = 0; i < reservations.getSize(); i++) {
         Reservation* r = reservations.getAt(i);
@@ -219,3 +220,69 @@ void Staff::processCarReturn(Fleet& fleet, RentalQueue& rentals) {
     RentalStorage::saveToCSV(rentals, "rentals.csv");
     FleetStorage::saveCars(fleet, "cars.csv");
 }
+
+
+void Staff::sendCarToMaintenance(Fleet& fleet) {
+    int carId;
+
+    fleet.showCarList();
+    cout << "Enter Car ID to send to maintenance (0 to cancel): ";
+    cin >> carId;
+
+    if (carId == 0)
+        return;
+
+    Car* car = fleet.findCarById(carId);
+
+    if (!car) {
+        cout << "Car not found!\n";
+        return;
+    }
+
+    if (car->getStatus() == MAINTENANCE) {
+        cout << "Car is already under maintenance.\n";
+        return;
+    }
+
+    if (car->getStatus() == RENTED) {
+        cout << "Car is currently rented. Cannot send to maintenance.\n";
+        return;
+    }
+
+    car->setStatus(MAINTENANCE);
+
+    cout << "Car " << car->getId() << " is now under maintenance.\n";
+
+    FleetStorage::saveCars(fleet, "cars.csv");
+}
+
+
+void Staff::finishMaintenance(Fleet& fleet) {
+    int carId;
+
+    fleet.showCarList();
+    cout << "Enter Car ID to finish maintenance (0 to cancel): ";
+    cin >> carId;
+
+    if (carId == 0)
+        return;
+
+    Car* car = fleet.findCarById(carId);
+
+    if (!car) {
+        cout << "Car not found!\n";
+        return;
+    }
+
+    if (car->getStatus() != MAINTENANCE) {
+        cout << "Car is not under maintenance.\n";
+        return;
+    }
+
+    car->setStatus(AVAILABLE);
+
+    cout << "Car " << car->getId() << " is now AVAILABLE.\n";
+
+    FleetStorage::saveCars(fleet, "cars.csv");
+}
+

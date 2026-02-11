@@ -27,6 +27,7 @@ private:
     string type;
     double pricePerDay;
     CarStatus status;
+    double totalMaintenanceCost;
 
     ReservationPriorityQueue reservations;
     MaintenanceList* maintenanceHistory;
@@ -36,6 +37,7 @@ public:
     Car(int id, string plate, string brand, string model,
         string type, double price, CarStatus status);
 
+    ~Car();
     int getId() const;
     string getPlate() const;
     string getBrand() const;
@@ -57,6 +59,9 @@ public:
     bool isAvailable(int startDay, int endDay) const;
 
     MaintenanceList* getMaintenanceHistory() const;
+    void addMaintenance(Maintenance* m);
+    double getTotalMaintenanceCost() const;
+    void loadMaintenance(Maintenance* m);
 };
 
 #endif

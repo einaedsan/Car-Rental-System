@@ -20,6 +20,8 @@ public:
     void processCarReturn(Fleet& fleet, RentalQueue& rentals);
     void processReservationQueue(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
     void addEditCar(Fleet& fleet);
+    void sendCarToMaintenance(Fleet& fleet);
+    void finishMaintenance(Fleet& fleet);
 };
 
 #endif

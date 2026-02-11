@@ -14,6 +14,8 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
         cout << "2. Process Car Return\n";
         cout << "3. Process Reservation Queue\n";
         cout << "4. Add/Edit Car Fleet\n";
+        cout << "5. Send Car To Maintenance\n";
+        cout << "6. Finish Maintenance\n";
         cout << "0. Logout\n";
         cout << "Select option: ";
 
@@ -32,13 +34,24 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
         case 3:
             staff->processReservationQueue(fleet, reservations, rentals);
             break;
+
         case 4:
             staff->addEditCar(fleet);
             break;
+
+        case 5:
+            staff->sendCarToMaintenance(fleet);
+            break;
+
+        case 6:
+            staff->finishMaintenance(fleet);
+            break;
+
         case 0:
             exitMenu = true;
             cout << "Logging out...\n";
             break;
+
         default:
             cout << "Invalid option! Try again.\n";
         }
