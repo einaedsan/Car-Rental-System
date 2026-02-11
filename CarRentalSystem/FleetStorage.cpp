@@ -28,7 +28,7 @@ void FleetStorage::saveCars(const Fleet& fleet, const string& filename) {
 
     file.close();
 }
- 
+
 void FleetStorage::loadCars(Fleet& fleet, const string& filename) {
     ifstream file(filename.c_str());
     if (!file.is_open()) {
@@ -36,6 +36,7 @@ void FleetStorage::loadCars(Fleet& fleet, const string& filename) {
         return;
     }
 
+    int maxId = 0;
     string line;
     getline(file, line); // skip header
 
@@ -67,11 +68,22 @@ void FleetStorage::loadCars(Fleet& fleet, const string& filename) {
 
         status = stoi(line.substr(prev));
 
-        Car* car = new Car(plate, brand, model, type, price);
-        car->setStatus((CarStatus)status);
+        if (id > maxId)
+            maxId = id;
+
+        Car* car = new Car(
+            id,
+            plate,
+            brand,
+            model,
+            type,
+            price,
+            (CarStatus)status
+        );
 
         fleet.addCar(car);
     }
 
+    Car::syncNextId(maxId);
     file.close();
 }

@@ -132,7 +132,6 @@
     <ClCompile Include="Car.cpp" />
     <ClCompile Include="CarList.cpp" />
     <ClCompile Include="CarRentalSystem.cpp" />
-    <ClCompile Include="CarStorage.cpp" />
     <ClCompile Include="CustomerMenu.cpp" />
     <ClCompile Include="FileName.cpp" />
     <ClCompile Include="Fleet.cpp" />
@@ -165,7 +164,6 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
-    <ClInclude Include="CarStorage.h" />
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="Fleet.h" />
     <ClInclude Include="FleetStorage.h" />

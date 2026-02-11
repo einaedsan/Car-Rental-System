@@ -1,67 +1,76 @@
 ﻿#include "UserList.h"
 #include "UserStorage.h"
 #include "GuestMenu.h"
-#include "CarStorage.h"
-#include "UserList.h"
-#include "RentalQueue.h"
-#include "ReservationStorage.h"
-#include "ReservationPriorityQueue.h"
-#include "RentalStorage.h"
-#include "MaintenanceStorage.h"
+
 #include "Fleet.h"
+#include "FleetStorage.h"
+
+#include "RentalQueue.h"
+#include "RentalStorage.h"
+
+#include "ReservationPriorityQueue.h"
+#include "ReservationStorage.h"
+
+#include "MaintenanceStorage.h"
 
 int main() {
     UserList users;
     Fleet fleet;
-    CarList cars;
+
     ReservationPriorityQueue reservations;
     RentalQueue rentals;
-    CarStorage::loadFromCSV(cars, "cars.csv");
+    MaintenanceList maintenances;
 
+    // 🚗 Load Cars into Fleet
+    FleetStorage::loadCars(fleet, "cars.csv");
+
+    // 📦 Load Rentals
     RentalStorage::loadFromCSV(rentals, "rentals.csv");
 
+    // 📦 Load Reservations
     ReservationStorage::loadFromCSV(reservations, "reservations.csv");
 
-    // 🔗 اتصال Rentals به Car
+    // 🔗 وصل کردن Rentals به Fleet
     RentalQueueNode* curR = rentals.frontNode();
     while (curR) {
         Rental* r = curR->rental;
-        Car* car = cars.findById(r->getCarId());
+        Car* car = fleet.findCarById(r->getCarId());
         if (car)
             car->setStatus(RENTED);
         curR = curR->next;
     }
 
-    // 🔗 اتصال Reservations به Car
+    // 🔗 وصل کردن Reservations به Fleet
     for (int i = 0; i < reservations.getSize(); i++) {
         Reservation* res = reservations.getAt(i);
-        Car* car = cars.findById(res->getCarId());
+        Car* car = fleet.findCarById(res->getCarId());
         if (car && car->getStatus() == AVAILABLE)
             car->setStatus(RESERVED);
     }
 
-    MaintenanceList maintenances;
+    // 🛠 Load Maintenance
     MaintenanceStorage::load(maintenances, "maintenance.csv");
 
-    // 🔗 وصل کردن maintenance به ماشین مناسب
-    MaintenanceNode* cur = maintenances.getHead();
-    while (cur) {
-        Maintenance* m = cur->data;
-        Car* car = cars.findById(m->getCarId());
+    // 🔗 وصل کردن Maintenance به ماشین داخل Fleet
+    MaintenanceNode* curM = maintenances.getHead();
+    while (curM) {
+        Maintenance* m = curM->data;
+        Car* car = fleet.findCarById(m->getCarId());
         if (car) {
             car->getMaintenanceHistory()->addMaintenance(m);
         }
-        cur = cur->next;
+        curM = curM->next;
     }
-    // Load users from CSV
+
+    // 👤 Load users
     UserStorage::loadFromCSV(users, "users.csv");
 
-    // Show guest menu
-
+    // 🎮 Run app
     GuestMenu::show(users, fleet, reservations, rentals);
 
-    // Save users on exit
+    // 💾 Save on exit
     UserStorage::saveToCSV(users, "users.csv");
+    FleetStorage::saveCars(fleet, "cars.csv");
 
     return 0;
 }
