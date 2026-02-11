@@ -66,6 +66,10 @@ public:
     void updateStatus(RentalQueue& rentals);
     bool isAvailableForExtension(int oldEnd, int newEnd) const;
     bool isAvailableForPeriod(int startDay, int endDay, int ignoreRentalId) const;
+    void showMaintenanceHistory();
+
     };
+  
+
 
 #endif

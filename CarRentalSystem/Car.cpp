@@ -166,3 +166,32 @@ bool Car::isAvailableForPeriod(int startDay, int endDay, int ignoreRentalId) con
 
     return true;
 }
+
+void Car::showMaintenanceHistory() {
+    cout << "\n=== Maintenance History for Car ID: " << id << " ===\n";
+
+    if (!maintenanceHistory || !maintenanceHistory->getHead()) {
+        cout << "No maintenance records found.\n";
+        return;
+    }
+
+    MaintenanceNode* current = maintenanceHistory->getHead();
+    double total = 0;
+
+    while (current) {
+        Maintenance* m = current->data;
+
+        cout << "Maintenance ID: " << m->getId()
+            << " | Day: " << m->getDay()
+            << " | Description: " << m->getDescription()
+            << " | Cost: " << m->getCost()
+            << endl;
+
+        total += m->getCost();
+        current = current->next;
+    }
+
+    cout << "-----------------------------------\n";
+    cout << "Total Maintenance Cost: " << total << endl;
+}
+

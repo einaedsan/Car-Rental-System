@@ -21,9 +21,9 @@ public:
     void processCarReturn(Fleet& fleet, RentalQueue& rentals, UserList& users);
     void processReservationQueue(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
     void addEditCar(Fleet& fleet);
-    void sendCarToMaintenance(Fleet& fleet);
     void finishMaintenance(Fleet& fleet);
     void registerMaintenance(Fleet& fleet);
+    void viewCarMaintenanceHistory(Fleet& fleet);
 
 };
 

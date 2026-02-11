@@ -260,42 +260,6 @@ void Staff::processCarReturn(Fleet& fleet, RentalQueue& rentals, UserList& users
     UserStorage::saveToCSV(users, "users.csv");
 }
 
-
-void Staff::sendCarToMaintenance(Fleet& fleet) {
-    int carId;
-
-    fleet.showCarList();
-    cout << "Enter Car ID to send to maintenance (0 to cancel): ";
-    cin >> carId;
-
-    if (carId == 0)
-        return;
-
-    Car* car = fleet.findCarById(carId);
-
-    if (!car) {
-        cout << "Car not found!\n";
-        return;
-    }
-
-    if (car->getStatus() == MAINTENANCE) {
-        cout << "Car is already under maintenance.\n";
-        return;
-    }
-
-    if (car->getStatus() == RENTED) {
-        cout << "Car is currently rented. Cannot send to maintenance.\n";
-        return;
-    }
-
-    car->setStatus(MAINTENANCE);
-
-    cout << "Car " << car->getId() << " is now under maintenance.\n";
-
-    FleetStorage::saveCars(fleet, "cars.csv");
-}
-
-
 void Staff::finishMaintenance(Fleet& fleet) {
     int carId;
 
@@ -373,4 +337,23 @@ void Staff::registerMaintenance(Fleet& fleet) {
         MaintenanceStorage::save(*car->getMaintenanceHistory(), "maintenance.csv");
 }
 
+void Staff::viewCarMaintenanceHistory(Fleet& fleet) {
+    int carId;
+
+    fleet.showCarList();
+    cout << "Enter Car ID to view maintenance history (0 to cancel): ";
+    cin >> carId;
+
+    if (carId == 0)
+        return;
+
+    Car* car = fleet.findCarById(carId);
+
+    if (!car) {
+        cout << "Car not found!\n";
+        return;
+    }
+
+    car->showMaintenanceHistory();
+}
 
