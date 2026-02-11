@@ -24,6 +24,8 @@ public:
     Rental* findById(int rentalId) const;
     Rental* findByCarId(int carId) const;
     void showActiveRentals() const;
+    double calculateTotalIncome() const;
+
     
 };
 

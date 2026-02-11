@@ -5,6 +5,7 @@
 #include"ReservationStorage.h"
 #include "MaintenanceStorage.h"
 #include "UserStorage.h"
+#include "Manager.h"
 
 
 using namespace std;

@@ -220,3 +220,29 @@ void Fleet::showCarsByType(const string& type) const {
 Car* Fleet::findCarById(int carId) {
     return index.search(carId);
 }
+
+int Fleet::getTotalCars() const {
+    int count = 0;
+    CarNode* cur = cars.getHead();
+
+    while (cur) {
+        count++;
+        cur = cur->next;
+    }
+
+    return count;
+}
+
+int Fleet::getRentedCarsCount() const {
+    int count = 0;
+    CarNode* cur = cars.getHead();
+
+    while (cur) {
+        if (cur->data->getStatus() == RENTED)
+            count++;
+
+        cur = cur->next;
+    }
+
+    return count;
+}

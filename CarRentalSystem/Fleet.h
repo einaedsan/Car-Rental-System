@@ -24,6 +24,8 @@ public:
     void showAllTypes() const;
     void showCarsByBrand(const string& brand) const;
     void showCarsByType(const string& type) const;
+    int getTotalCars() const;
+    int getRentedCarsCount() const;
 
     Car* findCarById(int carId);
 };

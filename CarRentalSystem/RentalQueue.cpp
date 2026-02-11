@@ -1,4 +1,4 @@
-#include "RentalQueue.h"
+﻿#include "RentalQueue.h"
 
 RentalQueue::RentalQueue() : front(nullptr), rear(nullptr) {}
 
@@ -45,7 +45,7 @@ Rental* RentalQueue::findByCarId(int carId) const {
             return cur->rental;
         cur = cur->next;
     }
-    return nullptr; // �?�� ���
+    return nullptr; // پ?دا نشد
 }
 void RentalQueue::showActiveRentals() const {
     RentalQueueNode* cur = front;
@@ -67,3 +67,23 @@ void RentalQueue::showActiveRentals() const {
     if (!found)
         cout << "No active rentals.\n";
 }
+
+double RentalQueue::calculateTotalIncome() const {
+    double total = 0;
+
+    RentalQueueNode* cur = front;
+
+    while (cur) {
+        Rental* r = cur->rental;
+
+        // فقط اجاره‌های بسته شده حساب شوند
+        if (!r->isActive()) {
+            total += r->getTotalCost();
+        }
+
+        cur = cur->next;
+    }
+
+    return total;
+}
+
