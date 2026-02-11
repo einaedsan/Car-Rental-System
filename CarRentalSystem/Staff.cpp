@@ -77,6 +77,8 @@ void Staff::addEditCar(Fleet& fleet) {
     }
     else if (choice == 2) { // ویرایش
         int carId;
+
+        fleet.showCarList();
         cout << "Enter Car ID to edit: ";
         cin >> carId;
 
