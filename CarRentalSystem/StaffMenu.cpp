@@ -1,11 +1,11 @@
-#include "StaffMenu.h"
+﻿#include "StaffMenu.h"
 #include "Staff.h"
 #include <iostream>
 
 using namespace std;
 
 void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals) {
-    Staff* staff = Staff::getInstance();
+    Staff* staff = Staff::getInstance();  // Singleton Staff
 
     bool exitMenu = false;
     while (!exitMenu) {
@@ -24,9 +24,11 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
         case 1:
             staff->convertReservationToRental(fleet, reservations, rentals);
             break;
+
         case 2:
             staff->processCarReturn(fleet, rentals);
             break;
+
         case 3:
             staff->processReservationQueue(fleet, reservations, rentals);
             break;
@@ -35,6 +37,7 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
             break;
         case 0:
             exitMenu = true;
+            cout << "Logging out...\n";
             break;
         default:
             cout << "Invalid option! Try again.\n";

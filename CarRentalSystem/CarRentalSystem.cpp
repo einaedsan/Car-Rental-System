@@ -1,7 +1,7 @@
-﻿
-#include "UserList.h"
+﻿#include "UserList.h"
 #include "UserStorage.h"
 #include "GuestMenu.h"
+#include "StaffMenu.h"
 
 #include "Fleet.h"
 #include "FleetStorage.h"
@@ -14,10 +14,16 @@
 
 #include "MaintenanceStorage.h"
 
+#include <iostream>
+
+using namespace std;
+
 int main() {
+    // 🧑‍🤝‍🧑 کاربران و ماشین‌ها
     UserList users;
     Fleet fleet;
 
+    // 🗓 رزروها و اجاره‌ها
     ReservationPriorityQueue reservations;
     RentalQueue rentals;
     MaintenanceList maintenances;
@@ -25,10 +31,9 @@ int main() {
     // 🚗 Load Cars into Fleet
     FleetStorage::loadCars(fleet, "cars.csv");
 
-    // 📦 Load Rentals
+    // 📦 Load Rentals و وصل کردن ماشین‌ها به حالت RENTED
     RentalStorage::loadFromCSV(rentals, "rentals.csv");
 
-    // 🔗 وصل کردن Rentals به Fleet
     RentalQueueNode* curR = rentals.frontNode();
     while (curR) {
         Rental* r = curR->rental;
@@ -38,50 +43,51 @@ int main() {
         curR = curR->next;
     }
 
-    // 📦 Load Reservations
+    // 📦 Load Reservations و وصل کردن به ماشین‌ها
     ReservationStorage::loadFromCSV(reservations, "reservations.csv");
 
-    // 🔗 وصل کردن Reservations به Fleet و آپدیت وضعیت ماشین‌ها
     for (int i = 0; i < reservations.getSize(); i++) {
         Reservation* res = reservations.getAt(i);
         Car* car = fleet.findCarById(res->getCarId());
         if (car) {
-            // اضافه کردن رزرو به ماشین
             car->getReservationQueue().addReservation(res);
 
-            // اگر ماشین هنوز آزاد بود، وضعیتشو RESERVED کن
+            // فقط اگر ماشین آزاد بود و Rental نداشت، وضعیت رو RESERVED کن
             if (car->getStatus() == AVAILABLE)
                 car->setStatus(RESERVED);
         }
     }
 
-    // 🛠 Load Maintenance
+    // 🛠 Load Maintenance و وصل کردن به ماشین‌ها
     MaintenanceStorage::load(maintenances, "maintenance.csv");
 
-    // 🔗 وصل کردن Maintenance به ماشین داخل Fleet
     MaintenanceNode* curM = maintenances.getHead();
     while (curM) {
         Maintenance* m = curM->data;
         Car* car = fleet.findCarById(m->getCarId());
-        if (car) {
+        if (car)
             car->getMaintenanceHistory()->addMaintenance(m);
-        }
         curM = curM->next;
     }
 
     // 👤 Load users
     UserStorage::loadFromCSV(users, "users.csv");
 
-    // 🎮 Run app
+    // 🎮 Run Guest Menu
     GuestMenu::show(users, fleet, reservations, rentals);
 
-    // 💾 Save on exit
+    // 👨‍💼 Run Staff Menu بعد از GuestMenu (اختیاری برای تست Staff)
+    StaffMenu staffMenu;
+    staffMenu.show(fleet, reservations, rentals);
+
+    // 💾 Save data on exit
     UserStorage::saveToCSV(users, "users.csv");
     FleetStorage::saveCars(fleet, "cars.csv");
+    RentalStorage::saveToCSV(rentals, "rentals.csv");
+    ReservationStorage::saveToCSV(reservations, "reservations.csv");
 
     return 0;
 }
-
 
 
 

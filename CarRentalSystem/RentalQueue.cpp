@@ -37,3 +37,13 @@ Rental* RentalQueue::findById(int rentalId) const {
     }
     return nullptr;
 }
+
+Rental* RentalQueue::findByCarId(int carId) const {
+    RentalQueueNode* cur = front;
+    while (cur) {
+        if (cur->rental->getCarId() == carId)
+            return cur->rental;
+        cur = cur->next;
+    }
+    return nullptr; // Å?œ« ‰‘œ
+}

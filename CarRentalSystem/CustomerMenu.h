@@ -3,18 +3,17 @@
 #define CUSTOMER_MENU_H
 
 #include "User.h"
-#include "CarList.h"
+#include "Fleet.h"
 
 class CustomerMenu {
-private:
-    CarList* carList;
-
-    void createReservation(User* user);
-    void viewReservations(User* user);
-
 public:
-    CustomerMenu(CarList* list);
-    void show(User* user);
+    CustomerMenu() = default;  
+
+    void show(User* user, Fleet& fleet);
+
+private:
+    void createReservation(User* user, Fleet& fleet);
+    void viewReservations(User* user, Fleet& fleet);
 };
 
 #endif

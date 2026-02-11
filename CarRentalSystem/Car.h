@@ -43,6 +43,12 @@ public:
     string getType() const;
     double getPricePerDay() const;
     CarStatus getStatus() const;
+    // œ«Œ· class Car
+    void setBrand(const string& b) { brand = b; }
+    void setModel(const string& m) { model = m; }
+    void setType(const string& t) { type = t; }
+    void setPricePerDay(double p) { pricePerDay = p; }
+
 
     void setStatus(CarStatus s);
     static void syncNextId(int maxId);

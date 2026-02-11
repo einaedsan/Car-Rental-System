@@ -1,10 +1,20 @@
 ﻿#include "Fleet.h"
 #include "Car.h"
 #include <iostream>
+#include "Rental.h"
 
 using namespace std;
 
 Fleet::Fleet() {}
+string carStatusToString(CarStatus status) {
+    switch (status) {
+    case AVAILABLE: return "AVAILABLE";
+    case RESERVED: return "RESERVED";
+    case RENTED: return "RENTED";
+    case MAINTENANCE: return "MAINTENANCE";
+    default: return "UNKNOWN";
+    }
+}
 
 
 void Fleet::addCar(Car* car) {
@@ -45,27 +55,34 @@ void Fleet::showCarList() const {
 }
 
 
-void Fleet::showCarDetails(int carId) const {
+void Fleet::showCarDetails(int carId, RentalQueue& rentals) const {
     Car* car = index.search(carId);
 
     if (!car) {
-        cout << "Car not found.\n";
+        std::cout << "Car not found.\n";
         return;
     }
 
-    cout << "===== Car Details =====\n";
-    cout << "ID: " << car->getId() << endl;
-    cout << "Plate: " << car->getPlate() << endl;
-    cout << "Brand: " << car->getBrand() << endl;
-    cout << "Model: " << car->getModel() << endl;
-    cout << "Type: " << car->getType() << endl;
-    cout << "Price per day: " << car->getPricePerDay() << endl;
-    cout << "Status: " << car->getStatus() << endl;
+    std::cout << "===== Car Details =====\n";
+    std::cout << "ID: " << car->getId() << "\n";
+    std::cout << "Plate: " << car->getPlate() << "\n";
+    std::cout << "Brand: " << car->getBrand() << "\n";
+    std::cout << "Model: " << car->getModel() << "\n";
+    std::cout << "Type: " << car->getType() << "\n";
+    std::cout << "Price per day: " << car->getPricePerDay() << "\n";
+    std::cout << "Status: " << carStatusToString(car->getStatus()) << "\n";
 
     if (car->getStatus() == RENTED) {
-        cout << "Expected return day: (from Rental)\n";
+        Rental* rent = rentals.findByCarId(car->getId());
+        if (rent) {
+            if (rent->getActualReturnDay() > 0)
+                std::cout << "Actual return day: " << rent->getActualReturnDay() << "\n";
+            else
+                std::cout << "Expected return day: " << rent->getExpectedReturnDay() << "\n";
+        }
     }
 }
+
 
 void Fleet::filterCars(const char* brand, const char* type, double maxPrice) const {
 

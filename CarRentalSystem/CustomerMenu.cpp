@@ -8,11 +8,11 @@
 #include "Reservation.h"
 #include "ReservationStorage.h"
 
-CustomerMenu::CustomerMenu(CarList* list) {
-    carList = list;
-}
+//CustomerMenu::CustomerMenu(CarList* list) {
+//    carList = list;
+//}
 
-void CustomerMenu::show(User* user) {
+void CustomerMenu::show(User* user, Fleet& fleet) {
     bool exitMenu = false;
 
     while (!exitMenu) {
@@ -29,64 +29,63 @@ void CustomerMenu::show(User* user) {
 
         switch (choice) {
         case 1:
-            createReservation(user);
+            createReservation(user, fleet);  // از Fleet استفاده می‌کنه
             break;
-
         case 2:
-            viewReservations(user);
+            viewReservations(user, fleet);   // همین‌طور
             break;
-
         case 3:
             std::cout << "Renew Rental not implemented yet.\n";
             break;
-
         case 4:
             std::cout << "Pay Fees not implemented yet.\n";
             break;
-
         case 0:
             exitMenu = true;
             break;
-
         default:
             std::cout << "Invalid option! Try again.\n";
         }
     }
 }
 
-void CustomerMenu::createReservation(User* user) {
+void CustomerMenu::createReservation(User* user, Fleet& fleet) {
     std::cout << "\n--- Create Reservation ---\n";
 
-    // 1. نمایش ماشین‌ها
-    CarNode* cur = carList->getHead();
+    CarNode* cur = fleet.getCarList().getHead();
     while (cur) {
         Car* car = cur->data;
         std::cout << "Car ID: " << car->getId()
             << " | Brand: " << car->getBrand()
             << " | Model: " << car->getModel()
             << " | Price/day: " << car->getPricePerDay()
-            << " | Status: " << car->getStatus()
-            << "\n";
+            << " | Status: ";
+
+        switch (car->getStatus()) {
+        case AVAILABLE: std::cout << "Available"; break;
+        case RESERVED: std::cout << "Reserved"; break;
+        case RENTED: std::cout << "Rented"; break;
+        case MAINTENANCE: std::cout << "Maintenance"; break;
+        }
+
+        std::cout << "\n";
         cur = cur->next;
     }
 
-    // 2. انتخاب ماشین
     int carId;
     std::cout << "Enter Car ID: ";
     std::cin >> carId;
 
-    Car* selectedCar = carList->findById(carId);
+    Car* selectedCar = fleet.findCarById(carId);
     if (!selectedCar) {
         std::cout << "Car not found!\n";
         return;
     }
-
     if (selectedCar->getStatus() == MAINTENANCE) {
         std::cout << "Car is under maintenance.\n";
         return;
     }
 
-    // 3. بازه زمانی
     int startDay, endDay;
     std::cout << "Enter start day: ";
     std::cin >> startDay;
@@ -98,34 +97,25 @@ void CustomerMenu::createReservation(User* user) {
         return;
     }
 
-    // 4. بررسی تداخل
     if (!selectedCar->isAvailable(startDay, endDay)) {
         std::cout << "Car already reserved in this period.\n";
         return;
     }
 
-    // 5. ساخت رزرو
-    Reservation* r = new Reservation(
-        user->getId(),
-        selectedCar->getId(),
-        startDay,
-        endDay
-    );
-
+    Reservation* r = new Reservation(user->getId(), selectedCar->getId(), startDay, endDay);
     selectedCar->getReservationQueue().addReservation(r);
 
     std::cout << "Reservation created successfully!\n";
     std::cout << "Reservation ID: " << r->getReservationId() << "\n";
 
-    // 6. ذخیره روی CSV
     ReservationStorage::saveToCSV(selectedCar->getReservationQueue(), "reservations.csv");
 }
 
-void CustomerMenu::viewReservations(User* user) {
+void CustomerMenu::viewReservations(User* user, Fleet& fleet) {
     std::cout << "\n--- Your Reservations ---\n";
     bool found = false;
 
-    CarNode* carNode = carList->getHead();
+    CarNode* carNode = fleet.getCarList().getHead();
     while (carNode) {
         Car* car = carNode->data;
         ReservationPriorityQueue& q = car->getReservationQueue();
@@ -140,10 +130,10 @@ void CustomerMenu::viewReservations(User* user) {
                 found = true;
             }
         }
+
         carNode = carNode->next;
     }
 
-    if (!found) {
+    if (!found)
         std::cout << "No reservations found.\n";
-    }
 }

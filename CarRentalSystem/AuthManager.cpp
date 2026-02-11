@@ -3,9 +3,9 @@
 #include "Manager.h"
 #include "Staff.h"
 #include <iostream>
+#include "UserStorage.h"
 
 using namespace std;
-
 void AuthManager::signUp(UserList& users) {
     string name, username, password;
 
@@ -31,8 +31,13 @@ void AuthManager::signUp(UserList& users) {
     );
 
     users.add(user);
+
+    // 🔹 ذخیره روی CSV
+    UserStorage::saveToCSV(users, "users.csv");
+
     cout << "✅ Registration successful\n";
 }
+
 
 User* AuthManager::login(UserList& users) {
     string username, password;

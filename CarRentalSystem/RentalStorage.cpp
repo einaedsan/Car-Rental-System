@@ -1,6 +1,7 @@
 ﻿#include "RentalStorage.h"
 #include <fstream>
 #include <iostream>
+#include <iomanip> // برای setprecision
 
 using namespace std;
 
@@ -16,13 +17,14 @@ void RentalStorage::saveToCSV(const RentalQueue& rentals, const string& filename
     RentalQueueNode* cur = rentals.frontNode();
     while (cur != nullptr) {
         Rental* r = cur->rental;
+
         file << r->getId() << ","
             << r->getUserId() << ","
             << r->getCarId() << ","
             << r->getStartDay() << ","
             << r->getExpectedReturnDay() << ","
             << r->getActualReturnDay() << ","
-            << r->getDailyCost() << "," // اضافه شده
+            << fixed << setprecision(2) << r->getDailyCost() << ","
             << r->getTotalCost() << ","
             << r->getLateFine() << "\n";
 
@@ -47,61 +49,39 @@ void RentalStorage::loadFromCSV(RentalQueue& rentals, const string& filename) {
     while (getline(file, line)) {
         int pos = 0, comma;
 
-        // parse rentalId
-        comma = line.find(',', pos);
-        int rentalId = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
+        auto getNextField = [&](string& s) -> string {
+            comma = s.find(',', pos);
+            string field;
+            if (comma == string::npos) {
+                field = s.substr(pos);
+                pos = s.length();
+            }
+            else {
+                field = s.substr(pos, comma - pos);
+                pos = comma + 1;
+            }
+            return field;
+            };
 
-        // parse userId
-        comma = line.find(',', pos);
-        int userId = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse carId
-        comma = line.find(',', pos);
-        int carId = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse startDay
-        comma = line.find(',', pos);
-        int start = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse expectedReturnDay
-        comma = line.find(',', pos);
-        int expected = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse actualReturnDay
-        comma = line.find(',', pos);
-        int actual = stoi(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse dailyCost
-        comma = line.find(',', pos);
-        double dailyCost = stod(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse totalCost
-        comma = line.find(',', pos);
-        double total = stod(line.substr(pos, comma - pos));
-        pos = comma + 1;
-
-        // parse lateFine
-        double fine = stod(line.substr(pos));
+        pos = 0;
+        int rentalId = stoi(getNextField(line));
+        int userId = stoi(getNextField(line));
+        int carId = stoi(getNextField(line));
+        int start = stoi(getNextField(line));
+        int expected = stoi(getNextField(line));
+        int actual = stoi(getNextField(line));
+        double dailyCost = stod(getNextField(line));
+        double total = stod(getNextField(line));
+        double fine = stod(getNextField(line));
 
         // ایجاد Rental با dailyCost
         Rental* r = new Rental(userId, carId, start, expected, dailyCost);
 
-        // تنظیم ID واقعی
+        // تنظیم ID و مقادیر واقعی از CSV
         r->setRentalId(rentalId);
-
-        // بستن اجاره و محاسبه جریمه و totalCost
-        r->closeRental(actual, dailyCost); // روز جریمه = dailyCost یا میتونی مقدار جدا بذاری
-
-        // فقط اطمینان از totalCost و lateFine (اگر لازم باشه از CSV)
         r->setTotalCost(total);
         r->setLateFine(fine);
+        r->closeRental(actual, 0); // فقط actualReturnDay رو ست می‌کنیم، جریمه رو صفر می‌گیریم چون CSV داریم
 
         rentals.enqueue(r);
 
@@ -109,7 +89,6 @@ void RentalStorage::loadFromCSV(RentalQueue& rentals, const string& filename) {
             maxId = rentalId;
     }
 
-    // همگام سازی nextId
     Rental::syncNextId(maxId);
 
     file.close();

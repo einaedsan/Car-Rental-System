@@ -53,9 +53,8 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                 }
 
                 if (user) {
-                    CustomerMenu menu(&fleet.getCarList());
-
-                    menu.show(user);
+                    CustomerMenu menu;          // فقط سازنده پیش‌فرض
+                    menu.show(user, fleet);     
                 }
                 break;
             }
@@ -104,7 +103,7 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                         int id;
                         cin >> id;
                         if (id == 0) break;
-                        fleet.showCarDetails(id);
+                        fleet.showCarDetails(id, rentals);
                     }
                     break;
                 }
@@ -121,7 +120,8 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                         int id;
                         cin >> id;
                         if (id == 0) break;
-                        fleet.showCarDetails(id);
+                        fleet.showCarDetails(id, rentals);
+
                     }
                     break;
                 }
@@ -138,7 +138,8 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                         int id;
                         cin >> id;
                         if (id == 0) break;
-                        fleet.showCarDetails(id);
+                        fleet.showCarDetails(id, rentals);
+
                     }
                     break;
                 }
@@ -162,7 +163,8 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                 int carId;
                 cin >> carId;
                 if (carId == 0) break;
-                fleet.showCarDetails(carId);
+                fleet.showCarDetails(carId, rentals);
+
             }
             break;
         }

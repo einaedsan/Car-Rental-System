@@ -21,6 +21,7 @@ public:
     RentalQueueNode* frontNode() const { return front; } // getter برای CSV و ذخیره/بارگذاری
 
     Rental* findById(int rentalId) const;
+    Rental* findByCarId(int carId) const;
 };
 
 #endif

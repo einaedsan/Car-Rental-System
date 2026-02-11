@@ -1,0 +1,1 @@
+rentalId,userId,carId,startDay,expectedReturnDay,actualReturnDay,dailyCost,totalCost,lateFine
