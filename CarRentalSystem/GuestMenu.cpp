@@ -14,7 +14,8 @@ using namespace std;
 
 void GuestMenu::show(UserList& users, Fleet& fleet,
     ReservationPriorityQueue& reservations,
-    RentalQueue& rentals) {
+    RentalQueue& rentals)
+{
     AuthManager auth;
     bool exitMenu = false;
 
@@ -34,6 +35,7 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
             cout << "\nAre you:\n1. Customer\n2. Staff\n3. Manager\nSelect option: ";
             int roleChoice;
             cin >> roleChoice;
+
             switch (roleChoice) {
             case 1: { // Customer
                 int hasAccount;
@@ -51,28 +53,33 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                 }
 
                 if (user) {
-                    CustomerMenu::show(user);
+                    CustomerMenu menu(&fleet.getCarList());
+
+                    menu.show(user);
                 }
-                break; // ← این break برای case 1
+                break;
             }
 
             case 2: // Staff
-                if (AuthManager::loginStaff())
+                if (AuthManager::loginStaff()) {
                     StaffMenu::show(fleet, reservations, rentals);
-
+                }
                 break;
 
             case 3: // Manager
-                if (AuthManager::loginManager())
+                if (AuthManager::loginManager()) {
                     ManagerMenu::show();
+                }
                 break;
 
             default:
-                cout << "Invalid option!\n";
+                cout << "Invalid role option!\n";
                 break;
-            }
+            } // ← پایان switch roleChoice
+            break; // ← break برای case 1 اصلی (Register/Login)
+        }
 
-        case 2: {
+        case 2: { // Search Cars
             bool exitFilterMenu = false;
             while (!exitFilterMenu) {
                 cout << "\n=== Filter Cars ===\n";
@@ -85,20 +92,18 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                 cin >> filterChoice;
 
                 switch (filterChoice) {
-
                 case 1: {
                     fleet.showAllBrands();
                     cout << "Enter brand: ";
                     string brand;
                     cin >> brand;
                     fleet.showCarsByBrand(brand);
+
                     while (true) {
                         cout << "\nEnter car ID for details (0 to return): ";
                         int id;
                         cin >> id;
-
-                        if (id == 0)
-                            break;
+                        if (id == 0) break;
                         fleet.showCarDetails(id);
                     }
                     break;
@@ -110,14 +115,12 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                     string type;
                     cin >> type;
                     fleet.showCarsByType(type);
+
                     while (true) {
                         cout << "\nEnter car ID for details (0 to return): ";
                         int id;
                         cin >> id;
-
-                        if (id == 0)
-                            break;
-
+                        if (id == 0) break;
                         fleet.showCarDetails(id);
                     }
                     break;
@@ -128,16 +131,13 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
                     cout << "Enter max price: ";
                     cin >> price;
 
-                    fleet.filterCars(NULL, NULL, price);
+                    fleet.filterCars(nullptr, nullptr, price);
 
                     while (true) {
                         cout << "\nEnter car ID for details (0 to return): ";
                         int id;
                         cin >> id;
-
-                        if (id == 0)
-                            break;
-
+                        if (id == 0) break;
                         fleet.showCarDetails(id);
                     }
                     break;
@@ -149,33 +149,31 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
 
                 default:
                     cout << "Invalid option.\n";
+                    break;
                 }
             }
-
             break;
         }
 
-
-        case 3: {
+        case 3: { // Show all cars
             fleet.showCarList();
             while (true) {
                 cout << "\nEnter car ID to view details (0 to return): ";
                 int carId;
                 cin >> carId;
-                if (carId == 0) {
-                    break;
-                }
+                if (carId == 0) break;
                 fleet.showCarDetails(carId);
             }
             break;
-        }  
+        }
+
         case 0:
             exitMenu = true;
             break;
+
         default:
             cout << "Invalid option! Try again.\n";
-        }
-        }
+            break;
+        } // ← پایان switch(choice)
     }
 }
-      

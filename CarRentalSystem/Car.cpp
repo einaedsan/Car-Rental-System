@@ -75,3 +75,11 @@ Car::Car(int Id, string Plate, string Brand, string Model,
 void Car::syncNextId(int maxId) {
     nextId = maxId + 1;
 }
+
+ReservationPriorityQueue& Car::getReservationQueue() {
+    return reservations;
+}
+
+bool Car::isAvailable(int startDay, int endDay) const {
+    return !reservations.hasConflict(startDay, endDay);
+}

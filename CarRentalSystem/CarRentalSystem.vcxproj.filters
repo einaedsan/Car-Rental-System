@@ -30,6 +30,7 @@
     <ClCompile Include="ReservationStorage.cpp" />
     <ClCompile Include="SystemConfig.cpp" />
     <ClCompile Include="ReservationPriorityQueue.cpp" />
+    <ClCompile Include="ReservationLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthManager.h" />
@@ -62,6 +63,7 @@
     <ClInclude Include="ReservationStorage.h" />
     <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="ReservationPriorityQueue.h" />
+    <ClInclude Include="ReservationLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="users.csv" />

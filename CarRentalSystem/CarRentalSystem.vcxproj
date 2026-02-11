@@ -148,6 +148,7 @@
     <ClCompile Include="RentalQueueNode.cpp" />
     <ClCompile Include="RentalStorage.cpp" />
     <ClCompile Include="Reservation.cpp" />
+    <ClCompile Include="ReservationLoader.cpp" />
     <ClCompile Include="ReservationPriorityQueue.cpp" />
     <ClCompile Include="ReservationStorage.cpp" />
     <ClCompile Include="Staff.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="RentalQueueNode.h" />
     <ClInclude Include="RentalStorage.h" />
     <ClInclude Include="Reservation.h" />
+    <ClInclude Include="ReservationLoader.h" />
     <ClInclude Include="ReservationPriorityQueue.h" />
     <ClInclude Include="ReservationStorage.h" />
     <ClInclude Include="Staff.h" />
