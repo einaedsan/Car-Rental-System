@@ -193,6 +193,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cars.csv" />
+    <None Include="maintenance.csv" />
     <None Include="rentals.csv" />
     <None Include="reservations.csv" />
     <None Include="users.csv" />

@@ -16,6 +16,7 @@
 using namespace std;
 
 int main() {
+   
     UserList users;
     Fleet fleet;
 
@@ -25,8 +26,8 @@ int main() {
 
     // Load cars
     FleetStorage::loadCars(fleet, "cars.csv");
-    cout << "\n=== Loaded Fleet ===\n";
-    fleet.showCarList();
+ /*   cout << "\n=== Loaded Fleet ===\n";
+    fleet.showCarList();*/
 
     // Load rentals
     RentalStorage::loadFromCSV(rentals, "rentals.csv");
@@ -79,35 +80,7 @@ int main() {
     // Load users
     UserStorage::loadFromCSV(users, "users.csv");
 
-    // ===============================
-    // نمایش داده‌ها برای تست
-    // ===============================
-   /* cout << "\n=== Rentals Loaded ===\n";
-    curR = rentals.frontNode();
-    while (curR) {
-        Rental* r = curR->rental;
-        cout << "Rental ID: " << r->getId()
-            << " | Car ID: " << r->getCarId()
-            << " | Active: " << (r->isActive() ? "Yes" : "No") << "\n";
-        curR = curR->next;
-    }
-
-    cout << "\n=== Reservations Loaded ===\n";
-    for (int i = 0; i < reservations.getSize(); i++) {
-        Reservation* r = reservations.getAt(i);
-        cout << "Reservation ID: " << r->getReservationId()
-            << " | Car ID: " << r->getCarId()
-            << " | Start: " << r->getStartDay()
-            << " | End: " << r->getEndDay() << "\n";
-    }
-
-    cout << "\n=== Users Loaded ===\n";
-    UserNode* uNode = users.getHead();
-    while (uNode) {
-        User* u = uNode->data;
-        cout << u->getId() << " | " << u->getName() << "\n";
-        uNode = uNode->next;
-    }*/
+  
 
     // Guest menu
     GuestMenu::show(users, fleet, reservations, rentals, maintenances);

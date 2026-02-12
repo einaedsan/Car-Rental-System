@@ -83,13 +83,37 @@ ReservationPriorityQueue& Car::getReservationQueue() {
     return reservations;
 }
 
-bool Car::isAvailable(int startDay, int endDay) const {
+bool Car::isAvailable(int startDay, int endDay, RentalQueue& rentals) const {
 
-    if (status == MAINTENANCE || status == RENTED)
+    // 1️⃣ اگر تعمیره، کلاً غیر قابل رزرو
+    if (status == MAINTENANCE)
         return false;
 
-    return !reservations.hasConflict(startDay, endDay);
+    // 2️⃣ چک تداخل با رزروهای قبلی
+    for (int i = 0; i < reservations.getSize(); i++) {
+        Reservation* r = reservations.getAt(i);
+
+        if (!(endDay <= r->getStartDay() || startDay >= r->getEndDay())) {
+            return false;
+        }
+    }
+
+    // 3️⃣ چک تداخل با رنت فعال
+    Rental* activeRental = rentals.findByCarId(id);
+
+    if (activeRental && activeRental->isActive()) {
+
+        int rentStart = activeRental->getStartDay();
+        int rentEnd = activeRental->getExpectedReturnDay();
+
+        if (!(endDay <= rentStart || startDay >= rentEnd)) {
+            return false;
+        }
+    }
+
+    return true;
 }
+
 
 void Car::addMaintenance(Maintenance* m)
 {

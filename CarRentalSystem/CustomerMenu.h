@@ -16,7 +16,8 @@ public:
 
     void renewRental(User* user, Fleet& fleet, RentalQueue& rentals);
 private:
-    void createReservation(User* user, Fleet& fleet);
+    void createReservation(User* user, Fleet& fleet, RentalQueue& rentals);
+
     void viewReservations(User* user, Fleet& fleet);
     void payFees(User* user, UserList& users);
 

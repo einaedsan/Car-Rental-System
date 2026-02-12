@@ -62,6 +62,7 @@ void Fleet::showCarDetails(int carId, RentalQueue& rentals) const {
         std::cout << "Car not found.\n";
         return;
     }
+    car->updateStatus(rentals);
 
     std::cout << "===== Car Details =====\n";
     std::cout << "ID: " << car->getId() << "\n";

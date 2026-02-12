@@ -35,7 +35,8 @@ void CustomerMenu::show(User* user, Fleet& fleet,
 
         switch (choice) {
         case 1:
-            createReservation(user, fleet);  // از Fleet استفاده می‌کنه
+          createReservation(user, fleet, rentals);
+          
             break;
         case 2:
             viewReservations(user, fleet);   // همین‌طور
@@ -55,7 +56,8 @@ void CustomerMenu::show(User* user, Fleet& fleet,
     }
 }
 
-void CustomerMenu::createReservation(User* user, Fleet& fleet) {
+void CustomerMenu::createReservation(User* user, Fleet& fleet, RentalQueue& rentals)
+{
     std::cout << "\n--- Create Reservation ---\n";
 
     CarNode* cur = fleet.getCarList().getHead();
@@ -103,14 +105,15 @@ void CustomerMenu::createReservation(User* user, Fleet& fleet) {
         return;
     }
 
-    if (!selectedCar->isAvailable(startDay, endDay)) {
+    if (!selectedCar->isAvailable(startDay, endDay, rentals))
+    {
         std::cout << "Car already reserved in this period.\n";
         return;
     }
 
     Reservation* r = new Reservation(user->getId(), selectedCar->getId(), startDay, endDay);
     selectedCar->getReservationQueue().addReservation(r);
-
+    selectedCar->updateStatus(rentals);
 
 
     std::cout << "Reservation created successfully!\n";

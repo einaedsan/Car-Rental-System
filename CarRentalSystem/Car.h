@@ -56,7 +56,8 @@ public:
     static void syncNextId(int maxId);
 
     ReservationPriorityQueue& getReservationQueue();
-    bool isAvailable(int startDay, int endDay) const;
+    bool isAvailable(int startDay, int endDay, RentalQueue& rentals) const;
+
 
     MaintenanceList* getMaintenanceHistory() const;
     void addMaintenance(Maintenance* m);

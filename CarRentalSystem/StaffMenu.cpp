@@ -1,6 +1,7 @@
 ﻿#include "StaffMenu.h"
 #include "Staff.h"
 #include <iostream>
+#include "ReservationStorage.h"
 
 using namespace std;
 
@@ -25,6 +26,7 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
 
         switch (choice) {
         case 1:
+            ReservationStorage::loadFromCSV(reservations, "reservations.csv");
             staff->convertReservationToRental(fleet, reservations, rentals);
             break;
 
