@@ -1,4 +1,3 @@
-#pragma once
 
 #pragma once
 #ifndef CAR_H
@@ -7,6 +6,7 @@
 #include "MaintenanceList.h"
 #include "ReservationPriorityQueue.h"
 #include <string>
+#include "RentalQueue.h"
 
 using std::string;
 
@@ -17,7 +17,7 @@ enum CarStatus {
     MAINTENANCE
 };
 
-class Car {
+class Car{
 private:
     static int nextId;
     int id;
@@ -62,6 +62,10 @@ public:
     void addMaintenance(Maintenance* m);
     double getTotalMaintenanceCost() const;
     void loadMaintenance(Maintenance* m);
-};
+
+    void updateStatus(RentalQueue& rentals);
+    bool isAvailableForExtension(int oldEnd, int newEnd) const;
+    bool isAvailableForPeriod(int startDay, int endDay, int ignoreRentalId) const;
+    };
 
 #endif

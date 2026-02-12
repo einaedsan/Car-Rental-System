@@ -4,6 +4,7 @@
 #include "FleetStorage.h"
 #include"ReservationStorage.h"
 #include "MaintenanceStorage.h"
+#include "UserStorage.h"
 
 
 using namespace std;
@@ -188,39 +189,75 @@ void Staff::convertReservationToRental(Fleet& fleet, ReservationPriorityQueue& r
     ReservationStorage::saveToCSV(reservations, "reservations.csv");
 }
 
-void Staff::processCarReturn(Fleet& fleet, RentalQueue& rentals) {
+void Staff::processCarReturn(Fleet& fleet, RentalQueue& rentals, UserList& users) {
     if (rentals.isEmpty()) {
-        std::cout << "No rentals to process.\n";
+        cout << "No rentals to process.\n";
         return;
     }
 
-    Rental* rent = rentals.peek();
+    cout << "\n===== Active Rentals =====\n";
+    rentals.showActiveRentals();
+
+    int rentalId;
+    cout << "\nEnter Rental ID to return: ";
+    cin >> rentalId;
+
+    Rental* rent = rentals.findById(rentalId);
+    if (!rent || !rent->isActive()) {
+        cout << "Invalid or already closed rental.\n";
+        return;
+    }
+
     Car* car = fleet.findCarById(rent->getCarId());
+    if (!car) {
+        cout << "Car not found.\n";
+        return;
+    }
 
-    int actualReturn;
-    std::cout << "Enter actual return day for rental " << rent->getId() << ": ";
-    std::cin >> actualReturn;
+    User* user = users.findById(rent->getUserId());
 
-    double dailyLateFine = 20.0; // میتونه از تنظیمات پروژه گرفته بشه
-    rent->closeRental(actualReturn, dailyLateFine);
+    cout << "\nReturning Car:\n";
+    cout << "Car ID: " << car->getId() << "\n";
+    cout << "Plate: " << car->getPlate() << "\n";
+    cout << "Brand: " << car->getBrand() << "\n";
+    cout << "Model: " << car->getModel() << "\n";
+    cout << "Start Day: " << rent->getStartDay() << "\n";
+    cout << "Expected Return Day: " << rent->getExpectedReturnDay() << "\n";
 
+    // ------------------------
+    // محاسبه هزینه و جریمه
+    int daysRented = SystemDate::getDay() - rent->getStartDay() + 1;
+    double baseCost = daysRented * car->getPricePerDay();
+    double lateFine = 0;
+    if (SystemDate::getDay() > rent->getExpectedReturnDay())
+        lateFine = (SystemDate::getDay() - rent->getExpectedReturnDay()) * SystemConfig::DAILY_LATE_FINE;
 
-    // بررسی تعمیرات
-    if (car->getMaintenanceHistory() && car->getMaintenanceHistory()->hasPendingMaintenance())
-        car->setStatus(MAINTENANCE);
-    else
-        car->setStatus(AVAILABLE);
+    rent->setTotalCost(baseCost);
+    rent->setLateFine(lateFine);
 
-    // حذف Rental از صف و ذخیره
-    rentals.dequeue();
-    RentalStorage::saveToCSV(rentals, "rentals.csv");
+    // اضافه کردن بدهی به کاربر
+    if (user) user->addDebt(baseCost + lateFine);
 
-    std::cout << "Rental " << rent->getId() << " closed. Total cost: " << rent->getTotalCost()
-        << ", Late fine: " << rent->getLateFine() << "\n";
+    rent->setActualReturnDay(SystemDate::getDay());
+    rent->closeRental();
 
-    // 🔹 ذخیره خودکار بعد از برگشت
-    RentalStorage::saveToCSV(rentals, "rentals.csv");
+    // ------------------------
+    // ✅ آپدیت وضعیت ماشین با متد جدید
+    car->updateStatus(rentals);  // این خط جایگزین تمام if/else قبلی شد
+
+    // ------------------------
+    // نمایش نتیجه
+    cout << "\nRental Closed Successfully!\n";
+    cout << "Total Cost: " << rent->getTotalCost() << "\n";
+    cout << "Late Fine: " << rent->getLateFine() << "\n";
+    if (user)
+        cout << "Your total debt is now: " << user->getDebt() << "\n";
+
+    // ------------------------
+    // ذخیره فایل‌ها
     FleetStorage::saveCars(fleet, "cars.csv");
+    RentalStorage::saveToCSV(rentals, "rentals.csv");
+    UserStorage::saveToCSV(users, "users.csv");
 }
 
 

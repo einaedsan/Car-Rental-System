@@ -4,7 +4,8 @@
 #define RENTAL_QUEUE_H
 
 #include "RentalQueueNode.h"
-
+#include<iostream>
+using namespace std;
 class RentalQueue {
 private:
     RentalQueueNode* front;
@@ -22,6 +23,8 @@ public:
 
     Rental* findById(int rentalId) const;
     Rental* findByCarId(int carId) const;
+    void showActiveRentals() const;
+    
 };
 
 #endif

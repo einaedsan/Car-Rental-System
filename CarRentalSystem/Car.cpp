@@ -113,3 +113,56 @@ double Car::getTotalMaintenanceCost() const
 {
     return totalMaintenanceCost;
 }
+
+// بررسی وضعیت ماشین بر اساس رزرو، رنت و تعمیرات
+void Car::updateStatus(RentalQueue& rentals) {
+    // اگر رنت فعال وجود دارد
+    Rental* r = rentals.findByCarId(id);
+    if (r && r->isActive()) {
+        status = RENTED;
+        return;
+    }
+
+    // اگر رزرو وجود دارد
+    if (!reservations.isEmpty()) {
+        status = RESERVED;
+        return;
+    }
+
+    // اگر تعمیرات در انتظار وجود دارد
+    if (maintenanceHistory && maintenanceHistory->hasPendingMaintenance()) {
+        status = MAINTENANCE;
+        return;
+    }
+
+    // در غیر اینصورت آزاد است
+    status = AVAILABLE;
+}
+
+bool Car::isAvailableForExtension(int oldEnd, int newEnd) const {
+    for (int i = 0; i < reservations.getSize(); i++) {
+        Reservation* r = reservations.getAt(i);
+        if (r->getEndDay() == oldEnd) // رزرو فعلی خود رنت
+            continue;
+        if (r->overlaps(oldEnd, newEnd))
+            return false;
+    }
+    return true;
+}
+
+bool Car::isAvailableForPeriod(int startDay, int endDay, int ignoreRentalId) const {
+    for (int i = 0; i < reservations.getSize(); i++) {
+        Reservation* r = reservations.getAt(i);
+
+        // اگر مربوط به همون رنتاله، ردش کن
+        if (r->getReservationId() == ignoreRentalId)
+            continue;
+
+        // چک تداخل
+        if (!(endDay <= r->getStartDay() || startDay >= r->getEndDay())) {
+            return false;
+        }
+    }
+
+    return true;
+}

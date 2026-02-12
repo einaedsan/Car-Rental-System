@@ -7,12 +7,18 @@
 #include "ReservationPriorityQueue.h"
 #include "Reservation.h"
 #include "ReservationStorage.h"
+#include "RentalStorage.h"
+#include "UserStorage.h"
 
 //CustomerMenu::CustomerMenu(CarList* list) {
 //    carList = list;
 //}
 
-void CustomerMenu::show(User* user, Fleet& fleet) {
+void CustomerMenu::show(User* user, Fleet& fleet,
+    RentalQueue& rentals,
+    UserList& users)
+
+{
     bool exitMenu = false;
 
     while (!exitMenu) {
@@ -35,10 +41,10 @@ void CustomerMenu::show(User* user, Fleet& fleet) {
             viewReservations(user, fleet);   // همین‌طور
             break;
         case 3:
-            std::cout << "Renew Rental not implemented yet.\n";
+            renewRental(user, fleet, rentals);
             break;
         case 4:
-            std::cout << "Pay Fees not implemented yet.\n";
+            payFees(user, users);
             break;
         case 0:
             exitMenu = true;
@@ -105,10 +111,15 @@ void CustomerMenu::createReservation(User* user, Fleet& fleet) {
     Reservation* r = new Reservation(user->getId(), selectedCar->getId(), startDay, endDay);
     selectedCar->getReservationQueue().addReservation(r);
 
+
+
     std::cout << "Reservation created successfully!\n";
     std::cout << "Reservation ID: " << r->getReservationId() << "\n";
 
+    // ذخیره در فایل
     ReservationStorage::saveToCSV(selectedCar->getReservationQueue(), "reservations.csv");
+
+
 }
 
 void CustomerMenu::viewReservations(User* user, Fleet& fleet) {
@@ -136,4 +147,118 @@ void CustomerMenu::viewReservations(User* user, Fleet& fleet) {
 
     if (!found)
         std::cout << "No reservations found.\n";
+}
+void CustomerMenu::renewRental(User* user, Fleet& fleet, RentalQueue& rentals) {
+
+    cout << "\n--- Renew Rental ---\n";
+
+    RentalQueueNode* cur = rentals.frontNode();
+    bool found = false;
+
+    while (cur) {
+        Rental* r = cur->rental;
+
+        if (r->getUserId() == user->getId() && r->isActive()) {
+
+            cout << "Rental ID: " << r->getId()
+                << " | Car ID: " << r->getCarId()
+                << " | Return Day: " << r->getExpectedReturnDay()
+                << "\n";
+
+            found = true;
+        }
+
+        cur = cur->next;
+    }
+
+    if (!found) {
+        cout << "No active rentals found.\n";
+        return;
+    }
+
+    int rentalId;
+    cout << "Enter Rental ID to extend: ";
+    cin >> rentalId;
+
+    Rental* rental = rentals.findById(rentalId);
+
+    if (!rental || rental->getUserId() != user->getId() || !rental->isActive()) {
+        cout << "Invalid rental.\n";
+        return;
+    }
+
+    int extraDays;
+    cout << "Enter extra days: ";
+    cin >> extraDays;
+
+    if (extraDays <= 0) {
+        cout << "Invalid number of days.\n";
+        return;
+    }
+
+    // چک تداخل با رزرو بعدی
+    Car* car = fleet.findCarById(rental->getCarId());
+
+    if (!car) {
+        cout << "Car not found.\n";
+        return;
+    }
+
+    int newReturn = rental->getExpectedReturnDay() + extraDays;
+
+    if (!car->isAvailableForPeriod(
+        rental->getExpectedReturnDay(),
+        newReturn,
+        rental->getId()
+    )) {
+        cout << "Cannot extend. Car reserved in this period.\n";
+        return;
+    }
+
+
+        rental->extendRental(extraDays);
+
+        // آپدیت وضعیت ماشین بعد از تمدید
+        car->updateStatus(rentals);
+
+        cout << "Rental extended successfully!\n";
+        cout << "New Return Day: " << rental->getExpectedReturnDay() << "\n";
+
+        // ذخیره در فایل
+        RentalStorage::saveToCSV(rentals, "rentals.csv");
+
+    }
+
+
+    void CustomerMenu::payFees(User * user, UserList & users)
+    {    cout << "\n--- Pay Fees ---\n";
+
+    double debt = user->getDebt();
+    if (debt <= 0) {
+        cout << GREEN << "You have no outstanding fees.\n" << RESET;
+        return;
+    }
+
+    cout << YELLOW << "Your current debt: " << debt << RESET << "\n";
+
+    double amount;
+    cout << "Enter amount to pay: ";
+    cin >> amount;
+
+    if (amount <= 0) {
+        cout << RED << "Invalid amount.\n" << RESET;
+        return;
+    }
+
+    if (amount > debt) amount = debt;
+
+    user->payDebt(amount);
+
+    cout << GREEN << "Payment successful!\n" << RESET;
+    cout << "Remaining debt: " << user->getDebt() << "\n";
+
+    if (user->getDebt() == 0)
+        user->setBlocked(false);
+
+    UserStorage::saveToCSV(users, "users.csv");
 }

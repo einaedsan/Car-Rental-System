@@ -37,6 +37,8 @@ public:
     void add(User* user);
     User* findByUsername(string username);
     UserNode* getHead() const;
+    User* findById(int id);
+
 };
 
 

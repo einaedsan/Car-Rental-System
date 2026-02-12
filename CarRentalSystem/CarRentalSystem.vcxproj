@@ -192,6 +192,9 @@
     <ClInclude Include="UserStorage.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="cars.csv" />
+    <None Include="rentals.csv" />
+    <None Include="reservations.csv" />
     <None Include="users.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

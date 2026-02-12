@@ -54,14 +54,15 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
 
                 if (user) {
                     CustomerMenu menu;          // فقط سازنده پیش‌فرض
-                    menu.show(user, fleet);     
+                    menu.show(user, fleet, rentals, users);
+
                 }
                 break;
             }
 
             case 2: // Staff
                 if (AuthManager::loginStaff()) {
-                    StaffMenu::show(fleet, reservations, rentals);
+                    StaffMenu::show(fleet, reservations, rentals, users);
                 }
                 break;
 

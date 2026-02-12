@@ -1,5 +1,16 @@
+﻿#pragma once
 #pragma once
-#pragma once
+
+class SystemDate {
+private:
+    static int currentDay;
+public:
+    static int getDay() { return currentDay; }
+    static void advanceDay(int days = 1) { currentDay += days; }
+    static void setDay(int day) { currentDay = day; }
+};
+
+ // روز شروع سیستم
 
 class SystemConfig {
 public:

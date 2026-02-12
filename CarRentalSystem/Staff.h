@@ -5,6 +5,7 @@
 #include "User.h"
 #include "Fleet.h"
 #include "ReservationPriorityQueue.h"
+#include "UserList.h"
 #include "RentalQueue.h"
 
 class Staff : public User {
@@ -17,7 +18,7 @@ public:
 
     // وظایف اصلی Staff
     void convertReservationToRental(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
-    void processCarReturn(Fleet& fleet, RentalQueue& rentals);
+    void processCarReturn(Fleet& fleet, RentalQueue& rentals, UserList& users);
     void processReservationQueue(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals);
     void addEditCar(Fleet& fleet);
     void sendCarToMaintenance(Fleet& fleet);

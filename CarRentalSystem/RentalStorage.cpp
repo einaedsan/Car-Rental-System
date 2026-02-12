@@ -81,7 +81,7 @@ void RentalStorage::loadFromCSV(RentalQueue& rentals, const string& filename) {
         r->setRentalId(rentalId);
         r->setTotalCost(total);
         r->setLateFine(fine);
-        r->closeRental(actual, 0); // فقط actualReturnDay رو ست می‌کنیم، جریمه رو صفر می‌گیریم چون CSV داریم
+        r->setActualReturnDay(actual); 
 
         rentals.enqueue(r);
 

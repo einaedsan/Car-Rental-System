@@ -47,3 +47,23 @@ Rental* RentalQueue::findByCarId(int carId) const {
     }
     return nullptr; // ?ÏÇ äÔÏ
 }
+void RentalQueue::showActiveRentals() const {
+    RentalQueueNode* cur = front;
+    bool found = false;
+
+    while (cur) {
+        Rental* r = cur->rental;
+        if (r->isActive()) {
+            cout << "Rental ID: " << r->getId()
+                << " | User ID: " << r->getUserId()
+                << " | Car ID: " << r->getCarId()
+                << " | From day " << r->getStartDay()
+                << " to " << r->getExpectedReturnDay() << "\n";
+            found = true;
+        }
+        cur = cur->next;
+    }
+
+    if (!found)
+        cout << "No active rentals.\n";
+}

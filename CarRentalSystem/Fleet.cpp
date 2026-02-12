@@ -76,11 +76,16 @@ void Fleet::showCarDetails(int carId, RentalQueue& rentals) const {
         Rental* rent = rentals.findByCarId(car->getId());
         if (rent) {
             if (rent->getActualReturnDay() > 0)
-                std::cout << "Actual return day: " << rent->getActualReturnDay() << "\n";
+                cout << "Actual return day: " << rent->getActualReturnDay() << "\n";
             else
-                std::cout << "Expected return day: " << rent->getExpectedReturnDay() << "\n";
+                cout << "Expected return day: " << rent->getExpectedReturnDay() << "\n";
         }
     }
+    else if (car->getStatus() == RESERVED) {
+        if (!car->getReservationQueue().isEmpty())
+            cout << "Next reservation day: " << car->getReservationQueue().getAt(0)->getStartDay() << "\n";
+    }
+
 }
 
 

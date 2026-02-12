@@ -69,3 +69,12 @@ User* UserHashTable::find(const string& username) {
     }
     return nullptr;
 }
+User* UserList::findById(int id) {
+    UserNode* cur = head;
+    while (cur) {
+        if (cur->data->getId() == id)
+            return cur->data;
+        cur = cur->next;
+    }
+    return nullptr;
+}

@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals) {
+void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, RentalQueue& rentals, UserList& users) {
     Staff* staff = Staff::getInstance();  // Singleton Staff
 
     bool exitMenu = false;
@@ -29,7 +29,8 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
             break;
 
         case 2:
-            staff->processCarReturn(fleet, rentals);
+            staff->processCarReturn(fleet, rentals, users);
+
             break;
 
         case 3:

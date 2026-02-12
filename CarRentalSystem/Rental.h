@@ -1,6 +1,7 @@
 ﻿#pragma once
 #ifndef RENTAL_H
 #define RENTAL_H
+#include "SystemConfig.h"
 
 class Rental {
 private:
@@ -20,7 +21,8 @@ public:
     Rental(int userId, int carId, int startDay, int expectedReturnDay, double dailyCost);
 
     // بستن اجاره و محاسبه هزینه + جریمه
-    void closeRental(int actualReturnDay, double dailyLateFine);
+   /* void closeRental(int actualReturnDay, double dailyLateFine);*/
+    void closeRental();
 
     // Getter ها
     int getId() const { return rentalId; }
@@ -38,6 +40,13 @@ double getDailyCost() const { return dailyCost; }
     void setLateFine(double fine) { lateFine = fine; }
 
     static void syncNextId(int lastId) { nextId = lastId + 1; }
+
+    void extendRental(int extraDays);
+
+    bool isActive() const;
+
+    void setActualReturnDay(int day);
+
 };
 
 #endif

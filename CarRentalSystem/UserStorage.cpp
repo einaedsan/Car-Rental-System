@@ -12,7 +12,7 @@ void UserStorage::saveToCSV(const UserList& users, const string& filename) {
         return;
     }
 
-    file << "id,name,username,passwordHash,isBlocked\n";
+    file << "id,name,username,passwordHash,isBlocked,debt,activeRentals\n";
 
     UserNode* cur = users.getHead();
     while (cur != nullptr) {
@@ -22,7 +22,10 @@ void UserStorage::saveToCSV(const UserList& users, const string& filename) {
             << u->getName() << ","
             << u->getUsername() << ","
             << u->getPasswordHash() << ","
-            << (u->blocked() ? "1" : "0") << "\n";
+            << (u->blocked() ? "1" : "0") << ","
+            << u->getDebt() << ","
+            << u->getActiveRentalsCount()
+            << "\n";
 
         cur = cur->next;
     }
@@ -63,10 +66,20 @@ void UserStorage::loadFromCSV(UserList& users, const string& filename) {
         string hash = line.substr(pos, comma - pos);
         pos = comma + 1;
 
-        bool blocked = (line.substr(pos) == "1");
+        comma = line.find(',', pos);
+        bool blocked = (line.substr(pos, comma - pos) == "1");
+        pos = comma + 1;
+
+        comma = line.find(',', pos);
+        double debt = stod(line.substr(pos, comma - pos));
+        pos = comma + 1;
+
+        int activeRentals = stoi(line.substr(pos));
 
         User* u = new User(id, name, username, hash);
         u->setBlocked(blocked);
+        u->setDebt(debt);
+        u->setActiveRentalsCount(activeRentals);
 
         users.add(u);
 
