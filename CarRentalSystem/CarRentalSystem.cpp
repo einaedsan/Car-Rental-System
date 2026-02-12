@@ -85,9 +85,9 @@ int main() {
     // Guest menu
     GuestMenu::show(users, fleet, reservations, rentals, maintenances);
 
-    // Staff menu
-    StaffMenu staffMenu;
-    staffMenu.show(fleet, reservations, rentals, users);
+    //// Staff menu
+    //StaffMenu staffMenu;
+    //staffMenu.show(fleet, reservations, rentals, users);
 
     // Save on exit
     UserStorage::saveToCSV(users, "users.csv");
