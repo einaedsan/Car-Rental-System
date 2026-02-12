@@ -351,13 +351,12 @@ void Staff::processCarReturn(Fleet& fleet, RentalQueue& rentals, UserList& users
     UserStorage::saveToCSV(users, "users.csv");
 }
 
-
 void Staff::finishMaintenance(Fleet& fleet) {
     int carId;
 
     fleet.showCarList();
-    cout << "Enter Car ID to finish maintenance (0 to cancel): ";
-    cin >> carId;
+    std::cout << "Enter Car ID to finish maintenance (0 to cancel): ";
+    std::cin >> carId;
 
     if (carId == 0)
         return;
@@ -365,21 +364,37 @@ void Staff::finishMaintenance(Fleet& fleet) {
     Car* car = fleet.findCarById(carId);
 
     if (!car) {
-        cout << "Car not found!\n";
+        std::cout << "Car not found!\n";
         return;
     }
 
     if (car->getStatus() != MAINTENANCE) {
-        cout << "Car is not under maintenance.\n";
+        std::cout << "Car is not under maintenance.\n";
         return;
     }
 
+    // ✅ آخرین Maintenance pending را تمام کن
+    if (car->getMaintenanceHistory()) {
+        MaintenanceNode* cur = car->getMaintenanceHistory()->getHead();
+        while (cur) {
+            if (!cur->data->isFinished())
+                cur->data->setFinished(true);
+            cur = cur->next;
+        }
+
+        // ذخیره Maintenance های ماشین
+        MaintenanceStorage::save(*car->getMaintenanceHistory(), "maintenance.csv");
+    }
+
+    // تغییر وضعیت ماشین
     car->setStatus(AVAILABLE);
+    std::cout << "Car " << car->getId() << " is now AVAILABLE.\n";
 
-    cout << "Car " << car->getId() << " is now AVAILABLE.\n";
-
+    // ذخیره ماشین‌ها
     FleetStorage::saveCars(fleet, "cars.csv");
 }
+
+
 
 void Staff::registerMaintenance(Fleet& fleet) {
     int carId;

@@ -13,6 +13,7 @@ private:
     int day;
     string description;
     double cost;
+    bool finished;
 
 public:
 
@@ -23,6 +24,8 @@ public:
     int getDay() const;
     string getDescription() const;
     double getCost() const;
+    void setFinished(bool f);
+    bool isFinished() const;
 };
 
 #endif
