@@ -25,8 +25,9 @@ void CustomerMenu::show(User* user, Fleet& fleet,
         std::cout << "\n=== Customer Menu ===\n";
         std::cout << "1. Create Reservation\n";
         std::cout << "2. View Reservations\n";
-        std::cout << "3. Renew Rental\n";
-        std::cout << "4. Pay Fees\n";
+        std::cout << "3. View Rentals\n";
+        std::cout << "4. Renew Rental\n";
+        std::cout << "5. Pay Fees\n";
         std::cout << "0. Logout\n";
         std::cout << "Select option: ";
 
@@ -41,10 +42,14 @@ void CustomerMenu::show(User* user, Fleet& fleet,
         case 2:
             viewReservations(user, fleet);   // همین‌طور
             break;
+
         case 3:
-            renewRental(user, fleet, rentals);
+            viewRentals(user, rentals);
             break;
         case 4:
+            renewRental(user, fleet, rentals);
+            break;
+        case 5:
             payFees(user, users);
             break;
         case 0:
@@ -265,3 +270,39 @@ void CustomerMenu::renewRental(User* user, Fleet& fleet, RentalQueue& rentals) {
 
     UserStorage::saveToCSV(users, "users.csv");
 }
+
+    void CustomerMenu::viewRentals(User* user, RentalQueue& rentals) {
+        std::cout << "\n--- Your Rentals ---\n";
+
+        bool found = false;
+
+        RentalQueueNode* node = rentals.frontNode();
+
+        while (node) {
+            Rental* r = node->rental;
+
+            if (r->getUserId() == user->getId()) {
+
+                std::cout << "Rental ID: " << r->getId()
+                    << " | Car ID: " << r->getCarId()
+                    << " | From day " << r->getStartDay()
+                    << " to " << r->getExpectedReturnDay();
+
+                if (r->isActive())
+                    std::cout << " | Status: ACTIVE";
+                else
+                    std::cout << " | Status: FINISHED";
+
+                std::cout << " | Total Cost: " << r->getTotalCost()
+                    << " | Late Fine: " << r->getLateFine()
+                    << "\n";
+
+                found = true;
+            }
+
+            node = node->next;
+        }
+
+        if (!found)
+            std::cout << "No rentals found.\n";
+    }
