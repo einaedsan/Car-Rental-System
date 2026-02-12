@@ -64,6 +64,7 @@
     <ClInclude Include="SystemConfig.h" />
     <ClInclude Include="ReservationPriorityQueue.h" />
     <ClInclude Include="ReservationLoader.h" />
+    <ClInclude Include="ConsoleColor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="users.csv" />

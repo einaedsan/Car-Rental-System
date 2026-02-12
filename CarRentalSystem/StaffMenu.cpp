@@ -2,6 +2,8 @@
 #include "Staff.h"
 #include <iostream>
 #include "ReservationStorage.h"
+#include "ConsoleColor.h"
+
 
 using namespace std;
 
@@ -10,6 +12,7 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
 
     bool exitMenu = false;
     while (!exitMenu) {
+        setTextColor(TC_DARK_YELLOW);
         cout << "\n=== Staff Menu ===\n";
         cout << "1. Convert Reservation to Rental\n";
         cout << "2. Process Car Return\n";
@@ -20,6 +23,7 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
         cout << "7. View Car Maintenance History\n";
         cout << "0. Logout\n";
         cout << "Select option: ";
+        resetColor();
 
         int choice;
         cin >> choice;
@@ -52,7 +56,9 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
             break;
 
         case 7:
+            setTextColor(TC_GREEN);
             staff->viewCarMaintenanceHistory(fleet);
+            resetColor();
             break;
 
         case 0:

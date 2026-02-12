@@ -165,6 +165,7 @@
     <ClInclude Include="Car.h" />
     <ClInclude Include="CarList.h" />
     <ClInclude Include="CarNode.h" />
+    <ClInclude Include="ConsoleColor.h" />
     <ClInclude Include="CustomerMenu.h" />
     <ClInclude Include="Fleet.h" />
     <ClInclude Include="FleetStorage.h" />

@@ -1,10 +1,13 @@
 ﻿#include "ManagerMenu.h"
 #include "Manager.h"
+#include "ConsoleColor.h"
+
 
 
 void ManagerMenu::show(Fleet& fleet, RentalQueue& rentals, UserList& users, MaintenanceList& maintenance, ReservationPriorityQueue& reservations) {
     bool exitMenu = false;
     while (!exitMenu) {
+        setTextColor(TC_DARK_YELLOW);
         std::cout << "\n=== Manager Menu ===\n";
         std::cout << "1. View Income & Performance\n";
         std::cout << "2. Manage Problematic Users\n";
@@ -12,6 +15,7 @@ void ManagerMenu::show(Fleet& fleet, RentalQueue& rentals, UserList& users, Main
         std::cout << "4. Restore System\n";
         std::cout << "0. Logout\n";
         std::cout << "Select option: ";
+        resetColor();
 
         int choice;
         std::cin >> choice;
