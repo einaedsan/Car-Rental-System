@@ -5,16 +5,19 @@
 #include "AuthManager.h"
 #include "UserList.h"
 #include "Fleet.h"
-
+#include "MaintenanceList.h"
 #include "ReservationPriorityQueue.h"
 #include "RentalQueue.h"
 #include <iostream>
 
 using namespace std;
 
-void GuestMenu::show(UserList& users, Fleet& fleet,
+void GuestMenu::show(UserList& users,
+    Fleet& fleet,
     ReservationPriorityQueue& reservations,
-    RentalQueue& rentals)
+    RentalQueue& rentals,
+    MaintenanceList& maintenance)
+
 {
     AuthManager auth;
     bool exitMenu = false;
@@ -68,9 +71,11 @@ void GuestMenu::show(UserList& users, Fleet& fleet,
 
             case 3: // Manager
                 if (AuthManager::loginManager()) {
-                    ManagerMenu::show();
+                    ManagerMenu managerMenu;
+                    managerMenu.show(fleet, rentals, users, maintenance, reservations);
                 }
                 break;
+
 
             default:
                 cout << "Invalid role option!\n";

@@ -2,7 +2,7 @@
 #include "Manager.h"
 
 
-void ManagerMenu::show(Fleet& fleet, RentalQueue& rentals, User& users) {
+void ManagerMenu::show(Fleet& fleet, RentalQueue& rentals, UserList& users, MaintenanceList& maintenance, ReservationPriorityQueue& reservations) {
     bool exitMenu = false;
     while (!exitMenu) {
         std::cout << "\n=== Manager Menu ===\n";

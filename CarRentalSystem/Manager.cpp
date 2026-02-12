@@ -33,11 +33,7 @@ void Manager::generateReport(Fleet& fleet, RentalQueue& rentals) {
     std::cout << "Utilization Rate: " << utilizationRate << "%\n";
 }
 
-void Manager::exportAllData(Fleet& fleet,
-    UserList& users,
-    RentalQueue& rentals,
-    MaintenanceList& maintenance,
-    ReservationPriorityQueue& reservations) {
+void Manager::exportAllData(Fleet& fleet, UserList& users, RentalQueue& rentals, MaintenanceList& maintenance, ReservationPriorityQueue& reservations) {
 
     UserStorage::saveToCSV(users, "users.csv");
     FleetStorage::saveCars(fleet, "cars.csv");
@@ -48,11 +44,8 @@ void Manager::exportAllData(Fleet& fleet,
     std::cout << "✅ Full system backup completed.\n";
 }
 
-void Manager::importAllData(Fleet& fleet,
-    UserList& users,
-    RentalQueue& rentals,
-    MaintenanceList& maintenance,
-    ReservationPriorityQueue& reservations) {
+void Manager::importAllData(Fleet& fleet, UserList& users, RentalQueue& rentals, MaintenanceList& maintenance, ReservationPriorityQueue& reservations)
+{
 
     UserStorage::loadFromCSV(users, "users.csv");
     FleetStorage::loadCars(fleet, "cars.csv");

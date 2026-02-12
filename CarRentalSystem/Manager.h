@@ -5,6 +5,9 @@
 #include "User.h"
 #include "Fleet.h"
 #include "RentalQueue.h"
+#include "UserList.h"
+#include "MaintenanceList.h"
+#include "ReservationPriorityQueue.h"
 
 class Manager : public User {
 private:
@@ -15,7 +18,9 @@ private:
 public:
     static Manager* getInstance();
     void generateReport(Fleet& fleet, RentalQueue& rentals);
-    void exportCSV(Fleet& fleet, RentalQueue& rentals);
+    void exportAllData(Fleet& fleet,UserList& users, RentalQueue& rentals,MaintenanceList& maintenance,ReservationPriorityQueue& reservations);
+    void importAllData(Fleet& fleet,UserList& users,RentalQueue& rentals,MaintenanceList& maintenance,ReservationPriorityQueue& reservations);
+
 
 };
 

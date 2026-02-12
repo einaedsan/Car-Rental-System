@@ -2,17 +2,14 @@
 #include "UserStorage.h"
 #include "GuestMenu.h"
 #include "StaffMenu.h"
-
 #include "Fleet.h"
 #include "FleetStorage.h"
-
 #include "RentalQueue.h"
 #include "RentalStorage.h"
-
 #include "ReservationPriorityQueue.h"
 #include "ReservationStorage.h"
-
 #include "MaintenanceStorage.h"
+#include "MaintenanceList.h"
 
 #include <iostream>
 
@@ -113,7 +110,7 @@ int main() {
     }*/
 
     // Guest menu
-    GuestMenu::show(users, fleet, reservations, rentals);
+    GuestMenu::show(users, fleet, reservations, rentals, maintenances);
 
     // Staff menu
     StaffMenu staffMenu;

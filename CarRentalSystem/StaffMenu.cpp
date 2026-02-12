@@ -53,7 +53,6 @@ void StaffMenu::show(Fleet& fleet, ReservationPriorityQueue& reservations, Renta
             staff->viewCarMaintenanceHistory(fleet);
             break;
 
-
         case 0:
             exitMenu = true;
             cout << "Logging out...\n";

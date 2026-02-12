@@ -13,9 +13,12 @@ class GuestMenu {
 
 public:
 
-    static void show(UserList& users, Fleet& fleet,
+    static void show(UserList& users,
+        Fleet& fleet,
         ReservationPriorityQueue& reservations,
-        RentalQueue& rentals);
+        RentalQueue& rentals,
+        MaintenanceList& maintenance)
+        ;
 };
 
 #endif
