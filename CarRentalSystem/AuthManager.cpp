@@ -3,9 +3,37 @@
 #include "Manager.h"
 #include "Staff.h"
 #include <iostream>
+
 #include "UserStorage.h"
+#include <conio.h>
 
 using namespace std;
+string getHiddenPassword() {
+    string password;
+    char ch;
+
+    while (true) {
+        ch = _getch();  // کاراکتر بدون نمایش گرفته میشه
+
+        if (ch == 13) { // Enter
+            break;
+        }
+        else if (ch == 8) { // Backspace
+            if (!password.empty()) {
+                password.pop_back();
+                cout << "\b \b";  // پاک کردن ستاره
+            }
+        }
+        else {
+            password += ch;
+            cout << "*";  // نمایش ستاره
+        }
+    }
+
+    cout << endl;
+    return password;
+}
+
 void AuthManager::signUp(UserList& users) {
     string name, username, password;
 
@@ -21,7 +49,7 @@ void AuthManager::signUp(UserList& users) {
     }
 
     cout << "Password: ";
-    cin >> password;
+    password = getHiddenPassword();
 
     User* user = new User(
         users.generateNextId(),
@@ -46,7 +74,7 @@ User* AuthManager::login(UserList& users) {
     cin >> username;
 
     cout << "Password: ";
-    cin >> password;
+    password = getHiddenPassword();
 
     User* user = users.findByUsername(username);
     if (!user) {
@@ -76,7 +104,7 @@ bool AuthManager::loginManager() {
     cin >> username;
 
     cout << "Password: ";
-    cin >> password;
+    password = getHiddenPassword();
 
     Manager* manager = Manager::getInstance();
 
@@ -101,7 +129,7 @@ bool AuthManager::loginStaff() {
     cin >> username;
 
     cout << "Password: ";
-    cin >> password;
+    password = getHiddenPassword();
 
     Staff* staff = Staff::getInstance();
 

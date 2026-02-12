@@ -4,6 +4,8 @@
 
 #include "UserList.h"
 
+
+
 class AuthManager {
 public:
     static void signUp(UserList& users);

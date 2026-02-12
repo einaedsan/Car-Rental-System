@@ -9,6 +9,7 @@
 #include "ReservationStorage.h"
 #include "RentalStorage.h"
 #include "UserStorage.h"
+#include "ConsoleColor.h"  
 
 //CustomerMenu::CustomerMenu(CarList* list) {
 //    carList = list;
@@ -22,6 +23,7 @@ void CustomerMenu::show(User* user, Fleet& fleet,
     bool exitMenu = false;
 
     while (!exitMenu) {
+        setTextColor(TC_DARK_BLUE);
         std::cout << "\n=== Customer Menu ===\n";
         std::cout << "1. Create Reservation\n";
         std::cout << "2. View Reservations\n";
@@ -30,6 +32,7 @@ void CustomerMenu::show(User* user, Fleet& fleet,
         std::cout << "5. Pay Fees\n";
         std::cout << "0. Logout\n";
         std::cout << "Select option: ";
+        resetColor();
 
         int choice;
         std::cin >> choice;
