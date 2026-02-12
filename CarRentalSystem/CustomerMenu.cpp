@@ -67,6 +67,11 @@ void CustomerMenu::show(User* user, Fleet& fleet,
 void CustomerMenu::createReservation(User* user, Fleet& fleet, RentalQueue& rentals)
 {
     std::cout << "\n--- Create Reservation ---\n";
+    if (!user->canRent()) {
+        std::cout << RED << "You cannot create a reservation! "
+            << "Either your debt is too high or you are blocked.\n" << RESET;
+        return;
+    }
 
     CarNode* cur = fleet.getCarList().getHead();
     while (cur) {

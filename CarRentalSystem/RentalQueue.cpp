@@ -70,18 +70,24 @@ void RentalQueue::showActiveRentals() const {
 
 double RentalQueue::calculateTotalIncome() const {
     double total = 0;
-
     RentalQueueNode* cur = front;
 
     while (cur) {
         Rental* r = cur->rental;
 
-        // فقط اجاره‌های بسته شده حساب شوند
         if (!r->isActive()) {
-            total += r->getTotalCost();
+            // اجاره بسته شده: هزینه + جریمه
+            total += r->getTotalCost() + r->getLateFine();
+        }
+        else {
+            // اجاره جاری: هزینه پایه تا امروز
+            int daysRented = SystemDate::getDay() - r->getStartDay() + 1;
+            if (daysRented > 0) {
+                total += daysRented * r->getDailyCost();
+            }
         }
 
-        cur = cur->next;
+        cur = cur->next;  // مهم: باید بعد از همه حالت‌ها جلو بره
     }
 
     return total;
